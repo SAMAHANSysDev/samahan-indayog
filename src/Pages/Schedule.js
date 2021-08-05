@@ -1,7 +1,7 @@
 import React from 'react'
-import Typography from '@material-ui/core/Typography';
+// import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
-import Buttons from '../Components/Buttons';
+// import Buttons from '../Components/Buttons';
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
 

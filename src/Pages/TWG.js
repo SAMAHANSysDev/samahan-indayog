@@ -3,7 +3,6 @@ import Profiles from '../Components/Twg/Profiles'
 import { TwgData } from '../Components/Twg/TwgData'
 import Typography from '@material-ui/core/Typography';
 import { Paper, Grid } from '@material-ui/core';
-import Gradient from 'rgt'
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
 
