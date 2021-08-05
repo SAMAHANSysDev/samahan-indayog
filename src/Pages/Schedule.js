@@ -60,11 +60,11 @@ function Schedule({ forwardedRef }) {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-                <Paper elevation={2} className={classes.box}>
+            <Grid item xs={12} sm={6} justifyContent="center"alignItems="center">
+                <Paper elevation={2} className={classes.box} >
                     {liveData.map((live) => {
                         return (
-                            <Grid key={live.id} item xs={2} >
+                            <Grid key={live.id} item xs={12} justifyContent="center"alignItems="center" >
                                 <Typography variant="h5" >
                                     <a href={live.link}>{live.event}:{live.link}</a>
                                 </Typography>
@@ -113,13 +113,6 @@ function Schedule({ forwardedRef }) {
                     </Button>
 
                 </Grid>
-                {/* <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
-                    <img 
-                        src='/assets/Schedules/1.png' 
-                        alt="sched1" 
-                        width="900" 
-                    />
-                </Grid> */}
                 <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
                     
                     <Paper elevation={2} className={classes.box}>
@@ -128,7 +121,7 @@ function Schedule({ forwardedRef }) {
                         </Typography>
                         {schedData.map((sched) => {
                             return (
-                                <Grid key={sched.id} item xs={2} >
+                                <Grid key={sched.id} item xs={12} >
                                     <Schedules time={sched.time} data={sched.description} />
                                 </Grid>
                             )
