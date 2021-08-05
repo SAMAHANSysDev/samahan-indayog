@@ -60,13 +60,14 @@ function Schedule({ forwardedRef }) {
                 </Grid>
             </Grid>
 
-            <Grid item xs={12} sm={6} justifyContent="center"alignItems="center">
+            <Grid item xs={12} sm={6} justifyContent="center" alignItems="center">
                 <Paper elevation={2} className={classes.box} >
                     {liveData.map((live) => {
                         return (
-                            <Grid key={live.id} item xs={12} justifyContent="center"alignItems="center" >
+                            <Grid key={live.id} item xs={12} justifyContent="center" alignItems="center" >
                                 <Typography variant="h5" >
-                                    <a href={live.link}>{live.event}:{live.link}</a>
+                                    <a href={live.link}>{live.event}: {live.link}</a>
+                                    <ul/>
                                 </Typography>
                             </Grid>
                         )
@@ -86,7 +87,6 @@ function Schedule({ forwardedRef }) {
 
             <Grid item direction="column">
                 {/* <Grid direction="row" justifyContent="center" > */}
-
                 <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center" > 
                     <Button className={classes.buttonStyle}>
                         <Typography variant="h5" style={{color:"#D51E49"}}>
@@ -123,6 +123,7 @@ function Schedule({ forwardedRef }) {
                             return (
                                 <Grid key={sched.id} item xs={12} >
                                     <Schedules time={sched.time} data={sched.description} />
+                                    
                                 </Grid>
                             )
                         })}
