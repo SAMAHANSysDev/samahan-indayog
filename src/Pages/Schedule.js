@@ -1,10 +1,13 @@
 import React from 'react'
 // import Typography from '@material-ui/core/Typography';
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 // import Buttons from '../Components/Buttons';
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
 import Paper from '@material-ui/core/Paper';
+import Schedules from '../Components/Schedules';
+import { schedData } from '../Components/schedData';
+import { liveData } from '../Components/liveData';
 
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
@@ -45,22 +48,33 @@ function Schedule({ forwardedRef }) {
 
     return (
         <>
+        {/* live */}
         <Grid container direction="row" justifyContent="flex-end" innerRef={forwardedRef} className={classes.container} spacing={2}>
             <Grid direction="column" justifyContent="center">
                 <Grid >
-                    <Button className={classes.buttonStyle} style={{marginTop:"150%"}}>
-                        LIVE NOW
+                    <Button className={classes.buttonStyle} style={{marginTop:"100%",width:"25vh",height:"6.9vh"}}>
+                        <Typography variant="h5" style={{color:"#D51E49"}}>
+                            LIVE NOW
+                        </Typography>
                     </Button>
                 </Grid>
             </Grid>
 
             <Grid item xs={12} sm={6}>
                 <Paper elevation={2} className={classes.box}>
-                    
+                    {liveData.map((live) => {
+                        return (
+                            <Grid key={live.id} item xs={2} >
+                                <Typography variant="h5" >
+                                    <a href={live.link}>{live.event}:{live.link}</a>
+                                </Typography>
+                            </Grid>
+                        )
+                    })}
                 </Paper>
             </Grid>
         </Grid>
-
+        {/* sched */}
         <Grid container direction="row" innerRef={forwardedRef} className={classes.rootContainer}>
             <Grid item>
                 <img 
@@ -75,29 +89,54 @@ function Schedule({ forwardedRef }) {
 
                 <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center" > 
                     <Button className={classes.buttonStyle}>
-                        SCHEDULE
+                        <Typography variant="h5" style={{color:"#D51E49"}}>
+                            SCHEDULE
+                        </Typography>
                     </Button>
+
                     <Button className={classes.buttonStyle}>
-                        Day 1
+                        <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
+                            Day 1
+                        </Typography>
                     </Button>
+
                     <Button className={classes.buttonStyle}>
-                        Day 2
+                        <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
+                            Day 2
+                        </Typography>
                     </Button>
+
                     <Button className={classes.buttonStyle}>
-                        Day 3
+                        <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
+                            Day 3
+                        </Typography>
                     </Button>
+
                 </Grid>
-                
-                {/* <Paper elevation={2} className={classes.box}> */}
-                <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
+                {/* <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
                     <img 
                         src='/assets/Schedules/1.png' 
                         alt="sched1" 
                         width="900" 
                     />
-                </Grid>
+                </Grid> */}
+                <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
                     
-                {/* </Paper> */}
+                    <Paper elevation={2} className={classes.box}>
+                        <Typography variant="h4" style={{ paddingBottom:"2%" }}>
+                            Day 1
+                        </Typography>
+                        {schedData.map((sched) => {
+                            return (
+                                <Grid key={sched.id} item xs={2} >
+                                    <Schedules time={sched.time} data={sched.description} />
+                                </Grid>
+                            )
+                        })}
+                    </Paper>
+                    {/* <Schedules /> */}
+                </Grid>
+                
                 
             </Grid>
             

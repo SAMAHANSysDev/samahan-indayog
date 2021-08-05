@@ -1,20 +1,24 @@
 export const liveData = [
     {
         id:1,
-        link:""
+        event:"Star Search 2021",
+        link:"fb.watch/samplelink1"
     },
     {
         id:2,
-        link:""
+        event:"Star Search 2021",
+        link:"fb.watch/samplelink1"
     },
 
     {
         id:3,
-        link:""
+        event:"Star Search 2021",
+        link:"fb.watch/samplelink1"
     },
     {
         id:4,
-        link:""
+        event:"Star Search 2021",
+        link:"fb.watch/samplelink1"
     },
 
 ]
