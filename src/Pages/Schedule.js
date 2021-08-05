@@ -123,14 +123,12 @@ function Schedule({ forwardedRef }) {
                             return (
                                 <Grid key={sched.id} item xs={12} >
                                     <Schedules time={sched.time} data={sched.description} />
-                                    
                                 </Grid>
                             )
                         })}
                     </Paper>
                     {/* <Schedules /> */}
                 </Grid>
-                
                 
             </Grid>
             
