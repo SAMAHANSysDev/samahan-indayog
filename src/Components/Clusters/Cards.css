@@ -1,0 +1,35 @@
+.cards>h4 {
+    /* overlap */
+    position: absolute;
+    text-align: center;
+}
+
+.cards>#card {
+    /* base of overlap */
+    position: relative;
+    border: none;
+    /* border-radius: 2vh; */
+    /* avoid distorted images */
+    object-fit: contain;
+    margin-left: 2vh;
+    margin-top: 2vh;
+    text-align: center;
+
+}
+
+/* .cards>#card :hover { */
+    /* hovered gets a little big*/
+    /* transform: scale(1.08); */
+    /* opacity: 1; */
+/* } */
+
+/* .cards>#card :hover { */
+    /* hovered gets a little big*/
+    /* transform: scale(1.08); */
+    /* opacity: 1; */
+/* } */
+
+.cards:hover{
+    transform:scale(1.08);
+    opacity:1;
+}
