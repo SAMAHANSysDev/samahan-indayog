@@ -4,6 +4,7 @@ import Charts from "./Charts";
 import Event from "./Event";
 import { judgingData } from './judgingData.js'
 
+
 function Standing() {
     const judging = {
         color: "#661693",
@@ -12,8 +13,8 @@ function Standing() {
     };
 
     return (
-        <Grid container spacing={4} wrap="nowrap">
-            <Grid item xs>
+        <Grid container spacing={4}>
+            <Grid item style={{ minHeight: '80vh' }} xs={12} md>
                 <Charts />
             </Grid>
             <Grid item>
@@ -23,7 +24,7 @@ function Standing() {
                   height: '100%'
                }} />
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12} md>
                 <Grid container direction="column" justify="center" alignItems="center">
                     <Grid item>
                         <Typography variant="h4" style={judging}>

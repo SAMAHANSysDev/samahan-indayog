@@ -41,8 +41,7 @@ function Sidebar({ maxHeight }) {
 
 
     return (
-        <>
-        <Grid direction="column" container wrap="nowrap" spacing={2} >
+        <Grid direction="column" container spacing={2} >
             <Grid item>
                 <Paper className={classes.cardContainer}>
                     <Grid container direction="column" spacing={2}>
@@ -73,7 +72,6 @@ function Sidebar({ maxHeight }) {
                 </Paper>
             </Grid>
         </Grid>
-        </>
 
         // <div className='sidebar'>
         //     <div className="sidebar_top">

@@ -4,8 +4,10 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
         image: {
-            width: 58,
-            height: 58,
+            width: '100%',
+            height: '100%',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
             borderRadius: 10,
         },
         details:{
@@ -31,14 +33,18 @@ function Event({img, alt, link}) {
     const classes = useStyles();
     return (
         <div className='event'>
-            <Grid container wrap="nowrap" spacing={1}>
-                <Grid item>
-                    <img className={classes.image} src={img} alt={alt}/>
+            <Grid container spacing={1}>
+                <Grid item xs={2} sm={6} md={4}>
+                    <div className={classes.image} style={{ backgroundImage: `url(${img})` }} />
                 </Grid>
-                <Grid item xs>
-                    <Grid className={classes.details} direction="column" container wrap="nowrap" spacing={0} >
-                        <Typography variant="h5" style={name}>{alt}</Typography>
-                        <Typography variant="h6" style={via}>{link}</Typography>
+                <Grid item xs={10} sm={6} md={8}>
+                    <Grid className={classes.details} direction="column" container spacing={0} >
+                        <Grid item>
+                            <Typography variant="h5" style={name}>{alt}</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h6" style={via}>{link}</Typography>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>

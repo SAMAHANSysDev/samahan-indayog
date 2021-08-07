@@ -38,8 +38,6 @@ const useStyles = makeStyles((theme) => ({
         borderRadius: 26,
         backgroundColor: 'white',
         padding: theme.spacing(2),
-        marginRight:"2%",
-        marginBottom:"3%"
     }
 }));
 
@@ -47,17 +45,15 @@ function Schedule({ forwardedRef }) {
     const classes = useStyles();
 
     return (
-        <>
+        <div ref={forwardedRef}>
         {/* live */}
-        <Grid container direction="row" justifyContent="flex-end" innerRef={forwardedRef} className={classes.container} spacing={2}>
-            <Grid direction="column" justifyContent="center">
-                <Grid >
-                    <Button className={classes.buttonStyle} style={{marginTop:"100%",width:"25vh",height:"6.9vh"}}>
-                        <Typography variant="h5" style={{color:"#D51E49"}}>
-                            LIVE NOW
-                        </Typography>
-                    </Button>
-                </Grid>
+        <Grid container direction="row" justifyContent="flex-end" className={classes.container} spacing={2}>
+            <Grid item>
+                <Button className={classes.buttonStyle} style={{marginTop:"100%",width:"25vh",height:"6.9vh"}}>
+                    <Typography variant="h5" style={{color:"#D51E49"}}>
+                        LIVE NOW
+                    </Typography>
+                </Button>
             </Grid>
 
             <Grid item xs={12} sm={6} justifyContent="center" alignItems="center">
@@ -76,64 +72,72 @@ function Schedule({ forwardedRef }) {
             </Grid>
         </Grid>
         {/* sched */}
-        <Grid container direction="row" innerRef={forwardedRef} className={classes.rootContainer}>
-            <Grid item>
+        <Grid container direction="row" alignItems="center" className={classes.rootContainer}>
+            <Grid item xs={4}>
                 <img 
                         src='/assets/Avatars/Atenean.png' 
                         alt="Atenean" 
-                        width="550" 
+                        width="100%" 
                 />
             </Grid>
-
-            <Grid item direction="column">
+            <Grid item xs={8}>
                 {/* <Grid direction="row" justifyContent="center" > */}
-                <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center" > 
-                    <Button className={classes.buttonStyle}>
-                        <Typography variant="h5" style={{color:"#D51E49"}}>
-                            SCHEDULE
-                        </Typography>
-                    </Button>
-
-                    <Button className={classes.buttonStyle}>
-                        <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
-                            Day 1
-                        </Typography>
-                    </Button>
-
-                    <Button className={classes.buttonStyle}>
-                        <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
-                            Day 2
-                        </Typography>
-                    </Button>
-
-                    <Button className={classes.buttonStyle}>
-                        <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
-                            Day 3
-                        </Typography>
-                    </Button>
-
+                <Grid container direction="column" spacing={4}>
+                    <Grid item>
+                        <Grid spacing={4} container direction="row" justifyContent="flex-start" alignItems="center" > 
+                            <Grid item>
+                                <Button className={classes.buttonStyle}>
+                                    <Typography variant="h5" style={{color:"#D51E49"}}>
+                                        SCHEDULE
+                                    </Typography>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button className={classes.buttonStyle}>
+                                    <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
+                                        Day 1
+                                    </Typography>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button className={classes.buttonStyle}>
+                                    <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
+                                        Day 2
+                                    </Typography>
+                                </Button>
+                            </Grid>
+                            <Grid item>
+                                <Button className={classes.buttonStyle}>
+                                    <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
+                                        Day 3
+                                    </Typography>
+                                </Button>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <Paper elevation={2} className={classes.box}>
+                            <Typography variant="h4" style={{ paddingBottom:"2%" }}>
+                                Day 1
+                            </Typography>
+                            <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
+                                {schedData.map((sched) => {
+                                    return (
+                                        <Grid key={sched.id} item xs={12}>
+                                            <Schedules time={sched.time} data={sched.description} />
+                                        </Grid>
+                                    )
+                                })}
+                            </Grid>
+                        </Paper>
+                    </Grid>
                 </Grid>
-                <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
-                    
-                    <Paper elevation={2} className={classes.box}>
-                        <Typography variant="h4" style={{ paddingBottom:"2%" }}>
-                            Day 1
-                        </Typography>
-                        {schedData.map((sched) => {
-                            return (
-                                <Grid key={sched.id} item xs={12} >
-                                    <Schedules time={sched.time} data={sched.description} />
-                                </Grid>
-                            )
-                        })}
-                    </Paper>
-                    {/* <Schedules /> */}
-                </Grid>
+                {/* <Schedules /> */}
                 
             </Grid>
             
         </Grid>
-        </>
+        </div>
         
     )
 }
