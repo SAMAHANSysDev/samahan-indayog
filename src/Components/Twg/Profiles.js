@@ -29,7 +29,7 @@ function Profiles({img, alt, name,position}) {
     const card = {
         // height:235.77,
         // width:235.77,
-        borderRadius:"20px",
+        borderRadius: 26,
     };
 
     const classes = useStyles();

@@ -8,7 +8,7 @@ const useStyles = makeStyles({
             height: '100%',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            borderRadius: 10,
+            borderRadius: 26,
         },
         details:{
             paddingLeft: 15,

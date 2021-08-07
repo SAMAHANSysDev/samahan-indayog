@@ -47,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
 
 function Image(props) {
     return (
-        <Card style={{ borderRadius: 20, height: '100%' }}>
+        <Card style={{ borderRadius: 26, height: '100%' }}>
             <div style={{ backgroundColor: 'white', width: '100%' }} />
             <CardMedia
                 component="img"
