@@ -4,6 +4,7 @@ import Cards from '../Components/Clusters/Cards'
 import { clustersData } from '../Components/Clusters/ClustersData'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
+import Hidden from '@material-ui/core/Hidden';
 import handleViewport from 'react-in-viewport';
 
 const useStyles = makeStyles((theme) => ({
@@ -24,15 +25,28 @@ function Clusters({ forwardedRef }) {
     return (
         <Grid innerRef={forwardedRef} container direction="column" justifyContent="center" alignItems="center" spacing={1} className={classes.rootContainer}>
             <Grid item>
-                <Grid container justifyContent="center" alignItems="center" spacing={1}>
-                    {clustersData.map((cluster) => {
-                        return (
-                            <Grid item key={cluster.id}>
-                                <Cards img={cluster.img} alt={cluster.alt} title={cluster.title} id={cluster.id} />
-                            </Grid>
-                        )
-                    })}
-                </Grid>
+                <Hidden mdDown>
+                    <Grid container justifyContent="center" alignItems="center" spacing={1}>
+                        {clustersData.map((cluster) => {
+                            return (
+                                <Grid item key={cluster.id}>
+                                    <Cards img={cluster.img} alt={cluster.alt} title={cluster.title} id={cluster.id} />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </Hidden>
+                <Hidden lgUp>
+                    <Grid container direction="column" justifyContent="center" alignItems="center" spacing={1}>
+                        {clustersData.map((cluster) => {
+                            return (
+                                <Grid item key={cluster.id}>
+                                    <Cards img={cluster.img.replace('.png', 'mobile.png')} alt={cluster.alt} title={cluster.title} id={cluster.id} mobile />
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
+                </Hidden>
             </Grid>
             <Grid item>
                 <Grid container direction="column" justifyContent="center" alignItems="center">

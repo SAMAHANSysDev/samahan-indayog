@@ -2,7 +2,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import React from 'react'
 import { Card, CardActionArea, makeStyles } from '@material-ui/core';
 
-function Cards({img, alt,title,id}) {
+function Cards({ img, alt, title, id, mobile }) {
     const handleClick = (e) => {
         e.preventDefault()
         const target = e.target.getAttribute('id').value
@@ -16,8 +16,8 @@ function Cards({img, alt,title,id}) {
         root: {
             // maxWidth: 345,
             // maxHeight: 345,
-            width: 134,
-            height:567,
+            width: '100%',
+            height: mobile ? 60 : 567,
             
             '&:hover': {
                 transform:"scale(1.08)",
@@ -36,7 +36,7 @@ function Cards({img, alt,title,id}) {
                         component="img"
                         alt={alt}
                         id={id}
-                        height="567"
+                        height={mobile ? "60" : "567"}
                         image={img}
                         title={title}
                     />
