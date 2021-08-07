@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const Navbar = ({ tabValue, setTabValue }) => {
+const Navbar = ({ tabValue }) => {
     const classes = useStyles();
     const theme = useTheme();
     const mdDown = useMediaQuery(theme.breakpoints.down('md'));
@@ -96,7 +96,6 @@ const Navbar = ({ tabValue, setTabValue }) => {
             delay: 100,
             smooth: "easeInOutQuint",
         });
-        setTabValue(i);
     };
 
     return (
@@ -122,10 +121,7 @@ const Navbar = ({ tabValue, setTabValue }) => {
                     { !mdDown ? (
                         <Grid item>
                             <Tabs 
-                                value={tabValue} 
-                                onChange={(event, newValue) => {
-                                    setTabValue(newValue);
-                                }} 
+                                value={tabValue}
                                 aria-label="simple tabs example"
                                 indicatorColor="secondary"
                             >
