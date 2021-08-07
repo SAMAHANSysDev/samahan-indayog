@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundImage: 'linear-gradient(to right, #2A5CB5, #D51E49)',
-        height: 100,
+        height: 100
     },
     menuButton: {
         position: 'absolute',
@@ -100,7 +100,7 @@ const Navbar = ({ tabValue }) => {
 
     return (
         <>
-            <AppBar className={classes.root} position="sticky" elevation={0}>
+            <AppBar className={classes.root} position="fixed" elevation={0}>
                 {mdDown ? (
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
                         <MenuIcon />

@@ -52,7 +52,7 @@ function App() {
 
     return (
         <div className="App">
-            <main id='home'>
+            <main id='home' style={{ paddingTop: 100 }}>
                 <Navbar tabValue={tabValue} />
                 <section className='home'>
                     <Home onEnterViewport={() => onEnter('home')} onLeaveViewport={() => onLeave('home')} />
