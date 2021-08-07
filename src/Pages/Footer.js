@@ -25,7 +25,7 @@ function SearchAppBar() {
         Copyright {(new Date()).getFullYear()} SAMAHAN | Developed by SAMAHAN Creative Team and SAMAHAN System Development
       </Typography>
       <Typography variant="caption" color="textSecondary" component="p" className={classes.text}>
-        Web Design and Development by Stephanie Ignas, Marco Dabon, and Janna Wong
+        Web Design and Development by Stephanie Ignas and Marco Dabon
       </Typography>
     </div>
   );

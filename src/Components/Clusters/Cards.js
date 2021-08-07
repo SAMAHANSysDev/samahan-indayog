@@ -17,7 +17,8 @@ function Cards({ img, alt, title, id, mobile, style }) {
             // maxWidth: 345,
             // maxHeight: 345,
             width: '100%',
-            height: mobile ? 60 : 567,
+            // height: mobile ? 60 : 567,
+            height: mobile ? 60 : 450,
             
             '&:hover': {
                 transform:"scale(1.08)",
@@ -36,7 +37,8 @@ function Cards({ img, alt, title, id, mobile, style }) {
                         component="img"
                         alt={alt}
                         id={id}
-                        height={mobile ? "60" : "567"}
+                        // height={mobile ? "60" : "567"}
+                        height={mobile ? "60" : "450"}
                         image={img}
                         title={title}
                     />

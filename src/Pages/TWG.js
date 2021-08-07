@@ -53,7 +53,7 @@ function TWG({ forwardedRef }) {
                 </Grid>
             </Grid>
             <Grid item>
-                <Grid container justifyContent="flex-start" alignItems="flex-start" spacing={2}>
+                <Grid container justifyContent="flex-start" alignItems="flex-start" spacing={0}>
                     {TwgData.map((twg) => {
                         return (
                             <Grid key={twg.id} item xs={6} sm={4} md={2}>
