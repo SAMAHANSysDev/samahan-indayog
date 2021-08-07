@@ -97,7 +97,7 @@ function Home({ forwardedRef }) {
                             </Grid>
                         </Hidden>
                         <Grid item xs={12} lg={9}>
-                            <Carousel autoPlay style={{ height: '100%' }}>
+                            <Carousel autoPlay animation="slide" style={{ height: '100%' }}>
                                 {ImgGal.map((img, i) => (
                                     <Image item={img} key={i} />
                                 ))}
