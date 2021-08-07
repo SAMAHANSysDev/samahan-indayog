@@ -2,7 +2,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import React from 'react'
 import { Card, CardActionArea, makeStyles } from '@material-ui/core';
 
-function Cards({ img, alt, title, id, mobile }) {
+function Cards({ img, alt, title, id, mobile, style }) {
     const handleClick = (e) => {
         e.preventDefault()
         const target = e.target.getAttribute('id').value
@@ -28,7 +28,7 @@ function Cards({ img, alt, title, id, mobile }) {
 
     const classes = useStyles();
     return (
-        <div className="cards">
+        <div className="cards" style={style}>
             <Card className={classes.root} id='card' onClick={handleClick}>
                 {/* <h4>{title}</h4> */}
                 <CardActionArea >

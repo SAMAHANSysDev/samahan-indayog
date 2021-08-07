@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+const moduloToMargin = (modulo) => {
+    return (50*modulo);
+}
+
 function Clusters({ forwardedRef }) {
     const classes = useStyles();
 
@@ -27,10 +31,10 @@ function Clusters({ forwardedRef }) {
             <Grid item>
                 <Hidden mdDown>
                     <Grid container justifyContent="center" alignItems="center" spacing={1}>
-                        {clustersData.map((cluster) => {
+                        {clustersData.map((cluster, i) => {
                             return (
                                 <Grid item key={cluster.id}>
-                                    <Cards img={cluster.img} alt={cluster.alt} title={cluster.title} id={cluster.id} />
+                                    <Cards img={cluster.img} alt={cluster.alt} title={cluster.title} id={cluster.id} style={{ marginTop: moduloToMargin(i % 3) }} />
                                 </Grid>
                             )
                         })}
@@ -38,10 +42,10 @@ function Clusters({ forwardedRef }) {
                 </Hidden>
                 <Hidden lgUp>
                     <Grid container direction="column" justifyContent="center" alignItems="center" spacing={1}>
-                        {clustersData.map((cluster) => {
+                        {clustersData.map((cluster, i) => {
                             return (
                                 <Grid item key={cluster.id}>
-                                    <Cards img={cluster.img.replace('.png', 'mobile.png')} alt={cluster.alt} title={cluster.title} id={cluster.id} mobile />
+                                    <Cards img={cluster.img.replace('.png', 'mobile.png')} alt={cluster.alt} title={cluster.title} id={cluster.id}  style={{ marginLeft: moduloToMargin(i % 3) }} mobile />
                                 </Grid>
                             )
                         })}
