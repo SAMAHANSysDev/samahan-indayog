@@ -55,11 +55,11 @@ function Schedule({ forwardedRef }) {
         {/* live */}
         <Grid container direction="row" justifyContent={smDown ? "center" : "flex-end"} alignItems="center" className={classes.container} spacing={2}>
             <Grid item>
-                <Button className={classes.buttonStyle}>
+                <Paper className={classes.buttonStyle} elevation={0}>
                     <Typography variant="h5" style={{color:"#D51E49"}}>
                         LIVE NOW
                     </Typography>
-                </Button>
+                </Paper>
             </Grid>
 
             <Grid item xs={12} md={6}>
@@ -96,11 +96,11 @@ function Schedule({ forwardedRef }) {
                     <Grid item>
                         <Grid spacing={4} container direction="row" justifyContent={smDown ? "center" : "flex-start"} alignItems="center" > 
                             <Grid item xs={12} md style={{ textAlign: smDown ? 'center' : '' }}>
-                                <Button className={classes.buttonStyle}>
+                                <Paper className={classes.buttonStyle} elevation={0}>
                                     <Typography variant="h5" style={{color:"#D51E49"}}>
                                         SCHEDULE
                                     </Typography>
-                                </Button>
+                                </Paper>
                             </Grid>
                             <Grid item>
                                 <Button className={classes.buttonStyle}>
