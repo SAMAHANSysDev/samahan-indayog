@@ -2,9 +2,8 @@ import React, { Suspense } from 'react';
 import Navbar from './Components/Navbar';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
+import Home from './Pages/Home';
 const Clusters = React.lazy(() => import('./Pages/Clusters'));
-const Home = React.lazy(() => import('./Pages/Home'));
 const TWG = React.lazy(() => import('./Pages/TWG'));
 const Schedule = React.lazy(() => import('./Pages/Schedule'));
 const Tv = React.lazy(() => import('./Pages/Tv'));
@@ -27,9 +26,7 @@ function App() {
             <main id='home'>
                 <Navbar tabValue={tabValue} setTabValue={setTabValue} />
                 <section className='home'>
-                    <Suspense fallback={<Loading />}>
-                        <Home onEnterViewport={() => setTabValue(0)} />
-                    </Suspense>
+                    <Home onEnterViewport={() => setTabValue(0)} />
                 </section>
                 <section className='clusters' id='clusters'>
                     <Suspense fallback={<Loading />}>

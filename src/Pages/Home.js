@@ -19,7 +19,6 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
-import { Parallax } from 'react-parallax';
 
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
@@ -27,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(4),
         paddingTop: '4rem',
         paddingBottom: '4rem',
+        backgroundImage: 'url("/assets/Backgrounds/Home BG.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
     },
     box: {
         backgroundColor: "white",
@@ -71,99 +73,97 @@ function Home({ forwardedRef }) {
     });
 
     return (
-        <Parallax bgImage="/assets/Backgrounds/Home BG.png" bgImageAlt="Home BG" strength={200}>
-            <div className={classes.rootContainer}>
-                <Grid container>
-                    <Grid item xs={10} md={11}>
-                        <Grid
-                            style={{ width: "100%", margin: 0, position: 'relative' }}
-                            container
-                            spacing={4}
-                            justifyContent="space-around"
-                        >
-                            <Hidden mdDown>
-                                <Grid item xs={3}>
-                                    <Sidebar />
-                                </Grid>
-                            </Hidden>
-                            <Grid item xs={12} lg={9}>
-                                <Carousel autoPlay animation="slide" style={{ height: '100%' }}>
-                                    {ImgGal.map((img, i) => (
-                                        <Image item={img} key={i} />
-                                    ))}
-                                </Carousel>
+        <div className={classes.rootContainer} ref={forwardedRef}>
+            <Grid container>
+                <Grid item xs={10} md={11}>
+                    <Grid
+                        style={{ width: "100%", margin: 0, position: 'relative' }}
+                        container
+                        spacing={4}
+                        justifyContent="space-around"
+                    >
+                        <Hidden mdDown>
+                            <Grid item xs={3}>
+                                <Sidebar />
                             </Grid>
-                            <Hidden lgUp>
-                                <Grid item xs={12}>
-                                    <Sidebar />
-                                </Grid>
-                            </Hidden>
-
-                            <a.div style={{ position: 'absolute', width: 'calc(100vw - 8rem)', ...contentProps }}>
-                                <Paper elevation={2} className={classes.box}>
-                                    <Grid container wrap="nowrap">
-                                        <Grid item>
-                                            <div 
-                                                style={{
-                                                    height: '100%', 
-                                                    paddingRight: '2rem',
-                                                    borderRadius: "26px 0 0 26px"
-                                                }}
-                                            >
-                                                <Grid container justify="center" alignItems="center" style={{ height: '100%' }}>
-                                                    <Grid item>
-                                                        <Typography variant="h4" className={classes.standing}>
-                                                            Indayog 2021 Cluster Standing
-                                                        </Typography>
-                                                    </Grid>
-                                                </Grid>
-                                            </div>
-                                        </Grid>
-                                        <Grid item xs>
-                                            <Standing />
-                                        </Grid>
-                                    </Grid>
-                                </Paper>
-                                <img 
-                                    src='/assets/Buttons/Artboard 1@4x.png' 
-                                    alt="FiestaYarn" 
-                                    width="150" 
-                                    style={{ 
-                                        position: 'absolute',
-                                        bottom: -60,
-                                        left: -60
-                                    }}
-                                />
-                                <div style={{ 
-                                    position: 'absolute',
-                                    top: '50%',
-                                    left: -30,
-                                    transform: 'translateY(-50%)'
-                                }}>
-                                    <Fab color="secondary" onClick={() => displayGreeting(a => !a)} >
-                                        { greetingStatus ? (
-                                            <ArrowForwardIosIcon />
-                                        ) : (
-                                            <ArrowBackIosIcon />
-                                        ) }
-                                    </Fab>
-                                </div>
-                            </a.div>
-
-                            {/* <Grid item md={12}> */}
-                            {/* <Typography variant="h2" style={standing}>Indayog 2021 Cluster Standing</Typography> */}
-                            {/* <div className="home_chart"> */}
-                            {/* <Charts /> */}
-                            {/* judging updates */}
-                            {/* <Typography variant="h2">Judging Updates</Typography> */}
-                            {/* </div> */}
-                            {/* </Grid> */}
+                        </Hidden>
+                        <Grid item xs={12} lg={9}>
+                            <Carousel autoPlay={false} animation="slide" style={{ height: '100%' }}>
+                                {ImgGal.map((img, i) => (
+                                    <Image item={img} key={i} />
+                                ))}
+                            </Carousel>
                         </Grid>
+                        <Hidden lgUp>
+                            <Grid item xs={12}>
+                                <Sidebar />
+                            </Grid>
+                        </Hidden>
+
+                        <a.div style={{ position: 'absolute', width: 'calc(100vw - 8rem)', ...contentProps }}>
+                            <Paper elevation={2} className={classes.box}>
+                                <Grid container wrap="nowrap">
+                                    <Grid item>
+                                        <div 
+                                            style={{
+                                                height: '100%', 
+                                                paddingRight: '2rem',
+                                                borderRadius: "26px 0 0 26px"
+                                            }}
+                                        >
+                                            <Grid container justify="center" alignItems="center" style={{ height: '100%' }}>
+                                                <Grid item>
+                                                    <Typography variant="h4" className={classes.standing}>
+                                                        Indayog 2021 Cluster Standing
+                                                    </Typography>
+                                                </Grid>
+                                            </Grid>
+                                        </div>
+                                    </Grid>
+                                    <Grid item xs>
+                                        <Standing />
+                                    </Grid>
+                                </Grid>
+                            </Paper>
+                            <img 
+                                src='/assets/Buttons/Artboard 1@4x.png' 
+                                alt="FiestaYarn" 
+                                width="150" 
+                                style={{ 
+                                    position: 'absolute',
+                                    bottom: -60,
+                                    left: -60
+                                }}
+                            />
+                            <div style={{ 
+                                position: 'absolute',
+                                top: '50%',
+                                left: -30,
+                                transform: 'translateY(-50%)'
+                            }}>
+                                <Fab color="secondary" onClick={() => displayGreeting(a => !a)} >
+                                    { greetingStatus ? (
+                                        <ArrowForwardIosIcon />
+                                    ) : (
+                                        <ArrowBackIosIcon />
+                                    ) }
+                                </Fab>
+                            </div>
+                        </a.div>
+
+                        {/* <Grid item md={12}> */}
+                        {/* <Typography variant="h2" style={standing}>Indayog 2021 Cluster Standing</Typography> */}
+                        {/* <div className="home_chart"> */}
+                        {/* <Charts /> */}
+                        {/* judging updates */}
+                        {/* <Typography variant="h2">Judging Updates</Typography> */}
+                        {/* </div> */}
+                        {/* </Grid> */}
                     </Grid>
-                    <Grid item xs={2} md={1} />
                 </Grid>
-            </div>
-        </Parallax>
+                <Grid item xs={2} md={1} />
+            </Grid>
+        </div>
     );
 }
 
