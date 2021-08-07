@@ -13,7 +13,7 @@ function Standing() {
     };
 
     return (
-        <Grid container spacing={4}>
+        <Grid container spacing={4} style={{ height: '100%' }} justifyContent="center" alignItems="center">
             <Grid item style={{ minHeight: '80vh' }} xs={12} md>
                 <Charts />
             </Grid>

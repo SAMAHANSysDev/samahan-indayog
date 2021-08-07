@@ -36,43 +36,44 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Sidebar({ maxHeight }) {
+const Sidebar = React.forwardRef((props, ref) => {
     const classes = useStyles();
 
 
     return (
-        <Grid direction="column" container spacing={2} >
-            <Grid item>
-                <Paper className={classes.cardContainer}>
-                    <Grid container direction="column" spacing={2}>
-                        <Grid item>
-                            <Typography variant="h4" className={classes.now}>Now Happening</Typography>
-                            {eventDataNow.map((now) => {
-                                return (
-                                    <Event img={now.img} key={now.id} alt={now.alt} link={now.link} />
-                                )
-                            })}
+        <div ref={ref}>
+            <Grid direction="column" container spacing={2}>
+                <Grid item>
+                    <Paper className={classes.cardContainer}>
+                        <Grid container direction="column" spacing={2}>
+                            <Grid item>
+                                <Typography variant="h4" className={classes.now}>Now Happening</Typography>
+                                {eventDataNow.map((now) => {
+                                    return (
+                                        <Event img={now.img} key={now.id} alt={now.alt} link={now.link} />
+                                    )
+                                })}
+                            </Grid>
+                            <Grid item>
+                                <hr className={classes.bar}/>
+                                <Typography variant="h4" className={classes.next2}>Up Next</Typography>
+                                {eventDataNext.map((next) => {
+                                    return (
+                                        <Event img={next.img} key={next.id} alt={next.alt} link={next.link} />
+                                    )
+                                })}
+                            </Grid>
                         </Grid>
-                        <Grid item>
-                            <hr className={classes.bar}/>
-                            <Typography variant="h4" className={classes.next2}>Up Next</Typography>
-                            {eventDataNext.map((next) => {
-                                return (
-                                    <Event img={next.img} key={next.id} alt={next.alt} link={next.link} />
-                                )
-                            })}
-                        </Grid>
-                    </Grid>
-                </Paper>
+                    </Paper>
+                </Grid>
+                <Grid item>
+                    {/* <h4>SAMAHAN Twitter Tweets</h4> */}
+                    <Paper className={classes.cardContainer}>
+                        <Tweets />
+                    </Paper>
+                </Grid>
             </Grid>
-            <Grid item>
-                {/* <h4>SAMAHAN Twitter Tweets</h4> */}
-                <Paper className={classes.cardContainer}>
-                    <Tweets />
-                </Paper>
-            </Grid>
-        </Grid>
-
+        </div>                        
         // <div className='sidebar'>
         //     <div className="sidebar_top">
         //         <h3 id='#now'>Now Happening</h3>
@@ -102,6 +103,6 @@ function Sidebar({ maxHeight }) {
         //     </div>
         // </div>
     )
-}
+});
 
 export default Sidebar

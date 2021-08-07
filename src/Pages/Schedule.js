@@ -94,8 +94,8 @@ function Schedule({ forwardedRef }) {
                 {/* <Grid direction="row" justifyContent="center" > */}
                 <Grid container direction="column" spacing={4}>
                     <Grid item>
-                        <Grid spacing={4} container direction="row" justifyContent="flex-start" alignItems="center" > 
-                            <Grid item>
+                        <Grid spacing={4} container direction="row" justifyContent={smDown ? "center" : "flex-start"} alignItems="center" > 
+                            <Grid item xs={12} md style={{ textAlign: smDown ? 'center' : '' }}>
                                 <Button className={classes.buttonStyle}>
                                     <Typography variant="h5" style={{color:"#D51E49"}}>
                                         SCHEDULE

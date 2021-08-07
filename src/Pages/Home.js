@@ -5,7 +5,6 @@ import Carousel from "react-material-ui-carousel";
 import { ImgGal } from "../Components/Home/ImgGal";
 import Card from "@material-ui/core/Card";
 import Paper from '@material-ui/core/Paper';
-import CardMedia from "@material-ui/core/CardMedia";
 import Grid from "@material-ui/core/Grid";
 import Hidden from '@material-ui/core/Hidden';
 import Typography from "@material-ui/core/Typography";
@@ -19,6 +18,10 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
+
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+import useDimensions from "react-cool-dimensions";
 
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
@@ -48,15 +51,13 @@ const useStyles = makeStyles((theme) => ({
 function Image(props) {
     return (
         <Card style={{ borderRadius: 26, height: '100%' }}>
-            <div style={{ backgroundColor: 'white', width: '100%' }} />
-            <CardMedia
-                component="img"
-                alt={`image_${props.key}`}
-                height="100%"
-                width="100%"
-                image={props.item.original}
-                title={`image_${props.key}`}
-            />
+            <div style={{ 
+                background: `url("${props.item.original}")`, 
+                width: '100%', 
+                height: props.height || 400,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center'
+            }} />
         </Card>
     );
 }
@@ -68,29 +69,38 @@ function Home({ forwardedRef }) {
 
     const [greetingStatus, displayGreeting] = React.useState(false);
 
+    const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+    const mdDown = useMediaQuery(theme.breakpoints.down('md'));
+    
+    const { observe, height: sidebarHeight } = useDimensions();
+    const { observe: observeMobile, height: mobileHeight } = useDimensions();
+
     const contentProps = useSpring({
-        left: greetingStatus ? 32 : width - 140,
+        left: greetingStatus ? 32 : width - (smDown ? 130 : 140),
     });
 
     return (
         <div className={classes.rootContainer} ref={forwardedRef}>
             <Grid container>
-                <Grid item xs={10} md={11}>
+                <Grid item xs={10} md={11} innerRef={observeMobile}>
                     <Grid
                         style={{ width: "100%", margin: 0, position: 'relative' }}
                         container
                         spacing={4}
                         justifyContent="space-around"
                     >
-                        <Hidden mdDown>
+                        { !mdDown ? (
                             <Grid item xs={3}>
-                                <Sidebar />
+                                <div ref={observe}>
+                                    <Sidebar />
+                                </div>
                             </Grid>
-                        </Hidden>
+                        ) : null }
                         <Grid item xs={12} lg={9}>
                             <Carousel autoPlay={false} animation="slide" style={{ height: '100%' }}>
                                 {ImgGal.map((img, i) => (
-                                    <Image item={img} key={i} />
+                                    <Image item={img} key={i} height={sidebarHeight} />
                                 ))}
                             </Carousel>
                         </Grid>
@@ -100,9 +110,9 @@ function Home({ forwardedRef }) {
                             </Grid>
                         </Hidden>
 
-                        <a.div style={{ position: 'absolute', width: 'calc(100vw - 8rem)', ...contentProps }}>
+                        <a.div style={{ position: 'absolute', width: 'calc(100vw - 8rem)', height: sidebarHeight || mobileHeight, ...contentProps }}>
                             <Paper elevation={2} className={classes.box}>
-                                <Grid container wrap="nowrap">
+                                <Grid container wrap="nowrap" style={{ height: '100%' }}>
                                     <Grid item>
                                         <div 
                                             style={{
@@ -128,11 +138,11 @@ function Home({ forwardedRef }) {
                             <img 
                                 src='/assets/Buttons/Artboard 1@4x.png' 
                                 alt="FiestaYarn" 
-                                width="150" 
+                                width={smDown ? "100" : "150"} 
                                 style={{ 
                                     position: 'absolute',
-                                    bottom: -60,
-                                    left: -60
+                                    bottom: smDown ? -40 : -60,
+                                    left: smDown ? -40 : -60
                                 }}
                             />
                             <div style={{ 

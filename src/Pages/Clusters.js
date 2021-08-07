@@ -42,10 +42,10 @@ function Clusters({ forwardedRef }) {
                 </Hidden>
                 <Hidden lgUp>
                     <Grid container direction="column" justifyContent="center" alignItems="center" spacing={1}>
-                        {clustersData.map((cluster, i) => {
+                        {clustersData.map((cluster) => {
                             return (
                                 <Grid item key={cluster.id}>
-                                    <Cards img={cluster.img.replace('.png', 'mobile.png')} alt={cluster.alt} title={cluster.title} id={cluster.id}  style={{ marginLeft: moduloToMargin(i % 3) }} mobile />
+                                    <Cards img={cluster.img.replace('.png', 'mobile.png')} alt={cluster.alt} title={cluster.title} id={cluster.id} mobile />
                                 </Grid>
                             )
                         })}
