@@ -67,17 +67,8 @@ function Home({ forwardedRef }) {
     const { width } = useWindowDimensions();
 
     const [greetingStatus, displayGreeting] = React.useState(false);
-    /* const clusterStandingRef = React.useRef(null);
-    const [clusterStandingWidth, setClusterStandingWidth] = React.useState(0); */
-
-    /*React.useEffect(() => {
-        setClusterStandingWidth(clusterStandingRef.current ? clusterStandingRef.current.offsetWidth : 0);
-    }, [clusterStandingRef]);*/
 
     const contentProps = useSpring({
-        //opacity: greetingStatus ? 1 : 0,
-        // marginTop: greetingStatus ? 0 : -500
-        // left: greetingStatus ? 200 : width - 200,
         left: greetingStatus ? 32 : width - 140,
     });
 

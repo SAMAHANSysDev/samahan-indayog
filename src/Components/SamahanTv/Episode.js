@@ -5,17 +5,17 @@ import Grid from '@material-ui/core/Grid';
 
 function Episode({ embedId, episode, description }) {
     return (
-        <Grid container alignItems="center">
-            <Grid item xs>
+        <Grid container alignItems="center" justifyContent="center" spacing={2}>
+            <Grid item xs={12} lg>
                 <Youtube embedId={embedId} />
             </Grid>
-            <Grid item xs>
+            <Grid item xs={12} lg>
                 <Grid container direction="column" style={{ color: 'white' }}>
                     <Grid item>
-                        <Typography variant="h6" style={{ fontWeight: 700 }}>{episode}</Typography>
+                        <Typography variant="h5" style={{ fontWeight: 700 }}>{episode}</Typography>
                     </Grid>
                     <Grid item>
-                        <Typography variant="body1">{description}</Typography>
+                        <Typography variant="h6">{description}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

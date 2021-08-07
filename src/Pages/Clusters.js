@@ -24,7 +24,7 @@ function Clusters({ forwardedRef }) {
     return (
         <Grid innerRef={forwardedRef} container direction="column" justifyContent="center" alignItems="center" spacing={1} className={classes.rootContainer}>
             <Grid item>
-                <Grid container spacing={1}>
+                <Grid container justifyContent="center" alignItems="center" spacing={1}>
                     {clustersData.map((cluster) => {
                         return (
                             <Grid item key={cluster.id}>

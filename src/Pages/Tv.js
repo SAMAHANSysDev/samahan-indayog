@@ -36,9 +36,9 @@ function Tv({ forwardedRef }) {
     const classes = useStyles();
     return (
         <Grid container direction="row" innerRef={forwardedRef}>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={6}>
                 <Grid className={classes.leftContainer} container direction="column" justifyContent="center" alignItems="center">
-                    <img src="/assets/Logo/Samahan TV Logo@4x.png" style={{ width:"50%" }} alt="martin Hall" />
+                    <img src="/assets/Logo/Samahan TV Logo@4x.png" style={{ width:"80%" }} alt="martin Hall" />
                     <Grid item>
                         <Paper style={{
                             background: 'rgba(0, 0, 0, 0.58)',
@@ -47,7 +47,7 @@ function Tv({ forwardedRef }) {
                             width: '70%',
                             margin: 'auto'
                         }}>
-                            <Typography className={classes.body} variant="h6">
+                            <Typography className={classes.body} variant="h5">
                                 <b>SAMAHAN TV</b> is an initiative for the upcoming 73rd Ateneo Fiesta for the purposes of information dissemination and to spark interest of Atenans to anticipate the biggest event in Ateneo. 
                                 <br /><br />The Fiesta Segment will comprise of six (6) episodes highlighting different events and provide a general overview for the upcoming activities.
                             </Typography>
@@ -55,7 +55,7 @@ function Tv({ forwardedRef }) {
                     </Grid>
                 </Grid>
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={6}>
                 <Grid className={classes.rightContainer} container direction="column" justifyContent="space-between" alignItems="center">
                     <Grid item>
                         <Typography variant="h3" style={{ 

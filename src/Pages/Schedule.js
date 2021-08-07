@@ -9,6 +9,9 @@ import Schedules from '../Components/Schedules';
 import { schedData } from '../Components/schedData';
 import { liveData } from '../Components/liveData';
 
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import { useTheme } from '@material-ui/core/styles';
+
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
         minHeight: '120vh',
@@ -44,43 +47,50 @@ const useStyles = makeStyles((theme) => ({
 function Schedule({ forwardedRef }) {
     const classes = useStyles();
 
+    const theme = useTheme();
+    const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
     return (
         <div ref={forwardedRef}>
         {/* live */}
-        <Grid container direction="row" justifyContent="flex-end" className={classes.container} spacing={2}>
+        <Grid container direction="row" justifyContent={smDown ? "center" : "flex-end"} alignItems="center" className={classes.container} spacing={2}>
             <Grid item>
-                <Button className={classes.buttonStyle} style={{marginTop:"100%",width:"25vh",height:"6.9vh"}}>
+                <Button className={classes.buttonStyle}>
                     <Typography variant="h5" style={{color:"#D51E49"}}>
                         LIVE NOW
                     </Typography>
                 </Button>
             </Grid>
 
-            <Grid item xs={12} sm={6} justifyContent="center" alignItems="center">
+            <Grid item xs={12} md={6}>
                 <Paper elevation={2} className={classes.box} >
-                    {liveData.map((live) => {
-                        return (
-                            <Grid key={live.id} item xs={12} justifyContent="center" alignItems="center" >
-                                <Typography variant="h5" >
-                                    <a href={live.link}>{live.event}: {live.link}</a>
-                                    <ul/>
-                                </Typography>
-                            </Grid>
-                        )
-                    })}
+                    <Grid container>
+                        {liveData.map((live) => {
+                            return (
+                                <Grid key={live.id} item xs={12} justifyContent="center" alignItems="center" >
+                                    <Typography variant="h5" >
+                                        <a href={live.link}>{live.event}: {live.link}</a>
+                                        <ul/>
+                                    </Typography>
+                                </Grid>
+                            )
+                        })}
+                    </Grid>
                 </Paper>
             </Grid>
         </Grid>
         {/* sched */}
         <Grid container direction="row" alignItems="center" className={classes.rootContainer}>
-            <Grid item xs={4}>
+            <Grid item xs={12} md={4}>
+                <center>
                 <img 
-                        src='/assets/Avatars/Atenean.png' 
-                        alt="Atenean" 
-                        width="100%" 
+                    src='/assets/Avatars/Atenean.png' 
+                    alt="Atenean"
+                    style={{ maxHeight: 600 }}
                 />
+                </center>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8}>
                 {/* <Grid direction="row" justifyContent="center" > */}
                 <Grid container direction="column" spacing={4}>
                     <Grid item>
