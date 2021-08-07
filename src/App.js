@@ -3,6 +3,7 @@ import Navbar from './Components/Navbar';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Home from './Pages/Home';
+import Footer from './Pages/Footer';
 const Clusters = React.lazy(() => import('./Pages/Clusters'));
 const TWG = React.lazy(() => import('./Pages/TWG'));
 const Schedule = React.lazy(() => import('./Pages/Schedule'));
@@ -80,6 +81,7 @@ function App() {
                     </Suspense>
                 </section>
                 <section className='rest'></section>
+                <Footer />
             </main>
         </div>
     );
