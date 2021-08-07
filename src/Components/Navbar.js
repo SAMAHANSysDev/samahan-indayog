@@ -102,9 +102,11 @@ const Navbar = ({ tabValue, setTabValue }) => {
     return (
         <>
             <AppBar className={classes.root} position="sticky" elevation={0}>
-                <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
-                    <MenuIcon />
-                </IconButton>
+                {mdDown ? (
+                    <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={toggleDrawer(true)}>
+                        <MenuIcon />
+                    </IconButton>
+                 ) : null}
                 <Grid container justify="space-around" alignItems="center" wrap="nowrap">
                     <Grid item>
                         <img

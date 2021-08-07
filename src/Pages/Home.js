@@ -78,7 +78,7 @@ function Home({ forwardedRef }) {
         //opacity: greetingStatus ? 1 : 0,
         // marginTop: greetingStatus ? 0 : -500
         // left: greetingStatus ? 200 : width - 200,
-        left: greetingStatus ? 32 : width - 120,
+        left: greetingStatus ? 32 : width - 140,
     });
 
     return (
