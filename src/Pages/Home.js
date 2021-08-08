@@ -56,8 +56,28 @@ function Image(props) {
                 width: '100%', 
                 height: props.height || 400,
                 backgroundSize: 'cover',
-                backgroundPosition: 'center'
-            }} />
+                backgroundPosition: 'center',
+                position: 'relative'
+            }}>
+                <div style={{ 
+                    position: 'absolute', 
+                    bottom: 0, 
+                    left: 0,
+                    color: 'white', 
+                    fontFamily: 'Montserrat',
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                    padding: 50
+                }}>
+                    <Grid container direction="column">
+                        <Grid item>
+                            <Typography variant="h2" style={{ fontWeight: 800 }}>{props.title}</Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography variant="h5" style={{ fontWeight: 500 }}>{props.description}</Typography>
+                        </Grid>
+                    </Grid>
+                </div>
+            </div>
         </Card>
     );
 }
@@ -100,7 +120,7 @@ function Home({ forwardedRef, firebaseLoading, events, eventsLoading }) {
                         <Grid item xs={12} lg={9}>
                             <Carousel autoPlay={false} animation="slide" style={{ height: '100%' }}>
                                 {ImgGal.map((img, i) => (
-                                    <Image item={img} key={i} height={sidebarHeight} />
+                                    <Image item={img} key={i} height={sidebarHeight} title={img.title} description={img.description} />
                                 ))}
                             </Carousel>
                         </Grid>
