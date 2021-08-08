@@ -21,7 +21,7 @@ export const ImgGal = Object.keys(imageLibrary).reduce((accumulator, current) =>
                 break;
             case '2015':
                 title = '67th Ateneo Fiesta';
-                description = 'Inang Maira, Gabay sa Pagbabalik-tanaw at Paglalakbay Tungo sa Pagkamit ng Kapayapaan sa Lipunan at Mindanao';
+                description = 'Inang Maria, Gabay sa Pagbabalik-tanaw at Paglalakbay Tungo sa Pagkamit ng Kapayapaan sa Lipunan at Mindanao';
                 break;
             case '2016':
                 title = 'Hugyaw: 68th Ateneo Fiesta';

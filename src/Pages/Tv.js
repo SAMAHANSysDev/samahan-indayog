@@ -12,7 +12,7 @@ import WP from '../Utils/wordpress';
 
 const useStyles = makeStyles((theme) => ({
     leftContainer: {
-        minHeight: '120vh',
+        minHeight: '100vh',
         padding: theme.spacing(4),
         paddingTop: '4rem',
         paddingBottom: '4rem',

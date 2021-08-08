@@ -86,7 +86,7 @@ function App() {
 
     return (
         <div className="App">
-            <main id='home' style={{ paddingTop: 100 }}>
+            <main id='home' style={{ paddingTop: 80 }}>
                 <Navbar tabValue={tabValue} />
                 <section className='home'>
                     <Home 

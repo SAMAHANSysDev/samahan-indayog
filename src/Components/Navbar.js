@@ -20,11 +20,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundImage: 'linear-gradient(to right, #2A5CB5, #D51E49)',
-        height: 100
+        height: 80
     },
     menuButton: {
         position: 'absolute',
-        top: 25,
+        top: 15,
         left: 'clamp(2rem, 4vw, 4rem)'
     },
     list: {
@@ -114,7 +114,7 @@ const Navbar = ({ tabValue }) => {
                             key="1"
                             onClick={handleClick}
                             src="/assets/Logo/logo.png"
-                            style={{ maxHeight: 100 }}
+                            style={{ maxHeight: 80 }}
                         />
                     </Grid>
                     { !mdDown ? (

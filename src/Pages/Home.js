@@ -25,7 +25,7 @@ import useDimensions from "react-cool-dimensions";
 
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
-        minHeight: '120vh',
+        minHeight: '100vh',
         padding: theme.spacing(4),
         paddingTop: '4rem',
         paddingBottom: '4rem',

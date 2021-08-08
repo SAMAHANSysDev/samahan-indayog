@@ -9,10 +9,8 @@ import handleViewport from 'react-in-viewport';
 
 const useStyles = makeStyles((theme) => ({
     rootContainer: {
-        minHeight: '120vh',
-        // padding: theme.spacing(4),
-        // paddingTop: '4rem',
-        paddingBottom: '4rem',
+        minHeight: '101vh',
+        padding: theme.spacing(2),
         backgroundImage: 'url("/assets/Backgrounds/Clusters BG.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center'
