@@ -2,6 +2,9 @@ import React, { Suspense } from 'react';
 import Navbar from './Components/Navbar';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
+
+import firebase from './Utils/firebaseInstance';
+
 import Home from './Pages/Home';
 import Footer from './Pages/Footer';
 const Clusters = React.lazy(() => import('./Pages/Clusters'));
@@ -20,6 +23,7 @@ const Loading = () => {
 }
 
 function App() {
+    const [firebaseLoading, setFirebaseLoading] = React.useState(true);
     const [viewportValues, setViewportValues] = React.useState({
         home: false,
         cluster: false,
@@ -50,12 +54,22 @@ function App() {
         setViewportValues(prev => ({ ...prev, [`${section}`]: false }));
     }
 
+    React.useEffect(() => {
+        setFirebaseLoading(true);
+        firebase.auth().signInAnonymously().then((res) => {
+            firebase.database().ref(`${process.env.REACT_APP_FIREBASE_ANON}/${res.user.uid}`).set(true);
+            setFirebaseLoading(false);
+        }).catch(() => {
+            setFirebaseLoading(false);
+        });
+    }, []);
+
     return (
         <div className="App">
             <main id='home' style={{ paddingTop: 100 }}>
                 <Navbar tabValue={tabValue} />
                 <section className='home'>
-                    <Home onEnterViewport={() => onEnter('home')} onLeaveViewport={() => onLeave('home')} />
+                    <Home onEnterViewport={() => onEnter('home')} onLeaveViewport={() => onLeave('home')} firebaseLoading={firebaseLoading} />
                 </section>
                 <section className='clusters' id='clusters'>
                     <Suspense fallback={<Loading />}>

@@ -7,12 +7,22 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import theme from './theme';
 import './index.css';
 
+import config from './Utils/firebaseConfig';
+import firebase from './Utils/firebaseInstance';
+
+import { FirebaseAuthProvider } from '@react-firebase/auth';
+import { FirebaseDatabaseProvider } from "@react-firebase/database";
+
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <App />
-    </ThemeProvider>
+    <FirebaseAuthProvider firebase={firebase} {...config}>
+      <FirebaseDatabaseProvider firebase={firebase} {...config}>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <App />
+        </ThemeProvider>
+      </FirebaseDatabaseProvider>
+    </FirebaseAuthProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

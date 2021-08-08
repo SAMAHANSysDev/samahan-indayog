@@ -33,11 +33,11 @@ function Event({img, alt, link}) {
     const classes = useStyles();
     return (
         <div className='event'>
-            <Grid container spacing={1}>
-                <Grid item xs={2} sm={6} md={4}>
+            <Grid container spacing={2}>
+                {/*<Grid item xs={2} sm={6} md={4}>
                     <div className={classes.image} style={{ backgroundImage: `url(${img})` }} />
-                </Grid>
-                <Grid item xs={10} sm={6} md={8}>
+                </Grid>*/}
+                <Grid item>
                     <Grid className={classes.details} direction="column" container spacing={0} >
                         <Grid item>
                             <Typography variant="h5" style={name}>{alt}</Typography>

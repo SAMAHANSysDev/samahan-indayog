@@ -62,7 +62,7 @@ function Image(props) {
     );
 }
 
-function Home({ forwardedRef }) {
+function Home({ forwardedRef, firebaseLoading }) {
     const classes = useStyles();
 
     const { width } = useWindowDimensions();
@@ -131,7 +131,7 @@ function Home({ forwardedRef }) {
                                         </div>
                                     </Grid>
                                     <Grid item xs>
-                                        <Standing />
+                                        <Standing firebaseLoading={firebaseLoading} />
                                     </Grid>
                                 </Grid>
                             </Paper>
