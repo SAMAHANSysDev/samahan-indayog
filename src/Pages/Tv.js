@@ -1,11 +1,14 @@
 import React from 'react'
 import Episode from '../Components/SamahanTv/Episode'
 import Typography from '@material-ui/core/Typography';
-import { tvData } from '../Components/SamahanTv/tvData';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import Grid from "@material-ui/core/Grid";
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
+import WP from '../Utils/wordpress';
 
 const useStyles = makeStyles((theme) => ({
     leftContainer: {
@@ -21,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     },
     rightContainer: {
         minHeight: '100vh',
+        height: '100%',
         backgroundColor: '#DB6A96',
         padding: theme.spacing(4)
     },
@@ -34,6 +38,27 @@ const useStyles = makeStyles((theme) => ({
 
 function Tv({ forwardedRef }) {
     const classes = useStyles();
+    const [tvEpisodes, setTvEpisodes] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        setLoading(true);
+        WP.samahanTv().perPage(100).then((data) => {
+            setTvEpisodes(data.map((episode) => ({
+                id: episode.id,
+                title: episode.title.rendered,
+                thumbnail: episode.acf.thumbnail,
+                description: episode.acf.description,
+                url: episode.acf.video_url
+            })));
+            setLoading(false);
+        })
+    }, []);
+
+    React.useEffect(() => {
+        console.log(tvEpisodes);
+    }, [tvEpisodes]);
+    
     return (
         <Grid container direction="row" innerRef={forwardedRef}>
             <Grid item xs={12} md={6}>
@@ -56,7 +81,7 @@ function Tv({ forwardedRef }) {
                 </Grid>
             </Grid>
             <Grid item xs={12} md={6}>
-                <Grid className={classes.rightContainer} container direction="column" justifyContent="space-between" alignItems="center">
+                <Grid className={classes.rightContainer} container direction="column" alignItems="center">
                     <Grid item>
                         <Typography variant="h3" style={{ 
                             color: '#FFFF', 
@@ -66,15 +91,28 @@ function Tv({ forwardedRef }) {
                         }}>Episode List</Typography>
                     </Grid>
                     <Grid item>
-                        <Grid container direction="column" spacing={4}>
-                            {tvData.map((tv) => {
-                                return (
-                                    <Grid item key={tv.id}>
-                                        <Episode embedId={tv.embedId} episode={tv.episode} description={tv.description} />
-                                    </Grid>
-                                )
-                            })}
-                        </Grid>
+                        {loading ? (
+                            <CircularProgress color="secondary" />
+                        ) : (
+                            <List>
+                                {tvEpisodes.map((tv) => {
+                                    return (
+                                        <ListItem 
+                                            button 
+                                            onClick={() => {
+                                                window.open(tv.url, '_blank')
+                                            }} 
+                                            key={tv.id}
+                                            style={{
+                                                borderRadius: 26
+                                            }}
+                                        >
+                                            <Episode {...tv} />
+                                        </ListItem>
+                                    )
+                                })}
+                            </List>
+                        )}
                     </Grid>
                 </Grid>
             </Grid>
