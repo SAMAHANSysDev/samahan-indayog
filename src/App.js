@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import firebase from './Utils/firebaseInstance';
+import { getCalendar } from './Utils/google';
 
 import Home from './Pages/Home';
 import Footer from './Pages/Footer';
@@ -54,6 +55,25 @@ function App() {
         setViewportValues(prev => ({ ...prev, [`${section}`]: false }));
     }
 
+    const [events, setEvents] = React.useState([]);
+    const [eventsLoading, setEventsLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        setEventsLoading(true);
+        getCalendar().then((res) => {
+            setEventsLoading(false);
+            console.log(res.items);
+            setEvents(res.items.map((item) => ({
+                id: item.id,
+                start: new Date(item.start.date ?? item.start.dateTime),
+                end: new Date(item.end.date ?? item.end.dateTime),
+                name: item.summary,
+                location: item.description,
+                url: item.location
+            })).sort((x, y) => x.start.getTime() - y.start.getTime()));
+        });
+    }, []);
+
     React.useEffect(() => {
         setFirebaseLoading(true);
         firebase.auth().signInAnonymously().then((res) => {
@@ -69,7 +89,13 @@ function App() {
             <main id='home' style={{ paddingTop: 100 }}>
                 <Navbar tabValue={tabValue} />
                 <section className='home'>
-                    <Home onEnterViewport={() => onEnter('home')} onLeaveViewport={() => onLeave('home')} firebaseLoading={firebaseLoading} />
+                    <Home 
+                        onEnterViewport={() => onEnter('home')} 
+                        onLeaveViewport={() => onLeave('home')} 
+                        firebaseLoading={firebaseLoading} 
+                        events={events}
+                        eventsLoading={eventsLoading}
+                    />
                 </section>
                 <section className='clusters' id='clusters'>
                     <Suspense fallback={<Loading />}>
@@ -79,7 +105,12 @@ function App() {
                 <section className='schedule' id='schedule'>
                     {/* <h1>Schedule</h1> */}
                     <Suspense fallback={<Loading />}>
-                        <Schedule onEnterViewport={() => onEnter('schedule')} onLeaveViewport={() => onLeave('schedule')} />
+                        <Schedule 
+                            onEnterViewport={() => onEnter('schedule')} 
+                            onLeaveViewport={() => onLeave('schedule')} 
+                            events={events}
+                            eventsLoading={eventsLoading}
+                        />
                     </Suspense>
                 </section>
                 <section className='samahanTv' id='samahanTv'>

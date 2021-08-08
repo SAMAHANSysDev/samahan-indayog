@@ -62,7 +62,7 @@ function Image(props) {
     );
 }
 
-function Home({ forwardedRef, firebaseLoading }) {
+function Home({ forwardedRef, firebaseLoading, events, eventsLoading }) {
     const classes = useStyles();
 
     const { width } = useWindowDimensions();
@@ -93,7 +93,7 @@ function Home({ forwardedRef, firebaseLoading }) {
                         { !mdDown ? (
                             <Grid item xs={3}>
                                 <div ref={observe}>
-                                    <Sidebar />
+                                    <Sidebar events={events} eventsLoading={eventsLoading} />
                                 </div>
                             </Grid>
                         ) : null }
@@ -106,7 +106,7 @@ function Home({ forwardedRef, firebaseLoading }) {
                         </Grid>
                         <Hidden lgUp>
                             <Grid item xs={12}>
-                                <Sidebar />
+                                <Sidebar events={events} eventsLoading={eventsLoading} />
                             </Grid>
                         </Hidden>
 

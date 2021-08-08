@@ -1,13 +1,15 @@
 import React from 'react'
 // import Typography from '@material-ui/core/Typography';
-import { Button, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography, CircularProgress } from '@material-ui/core';
 // import Buttons from '../Components/Buttons';
 import { makeStyles } from "@material-ui/core/styles";
 import handleViewport from 'react-in-viewport';
 import Paper from '@material-ui/core/Paper';
 import Schedules from '../Components/Schedules';
-import { schedData } from '../Components/schedData';
-import { liveData } from '../Components/liveData';
+
+import isWithinInterval from 'date-fns/isWithinInterval';
+import isToday from 'date-fns/isToday';
+import format from 'date-fns/format';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -44,11 +46,47 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function Schedule({ forwardedRef }) {
+function Schedule({ forwardedRef, events, eventsLoading }) {
     const classes = useStyles();
 
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
+
+    const [currentDay, setCurrentDay] = React.useState(1);
+
+    const isFirstDay = (date) => isWithinInterval(
+        new Date(date),
+        { start: new Date('Aug 12, 2021'), end: new Date('Aug 13, 2021') }
+    )
+    const isSecondDay = (date) => isWithinInterval(
+        new Date(date),
+        { start: new Date('Aug 13, 2021'), end: new Date('Aug 14, 2021') }
+    )
+    const isThirdDay = (date) => isWithinInterval(
+        new Date(date),
+        { start: new Date('Aug 14, 2021'), end: new Date('Aug 15, 2021') }
+    )
+
+    const changeDay = (day) => {
+        setCurrentDay(day);
+    }
+
+    const dayEvents = React.useMemo(() => {
+        switch (currentDay) {
+            case 1:
+                return events.filter((event) => isFirstDay(event.start));
+            case 2:
+                return events.filter((event) => isSecondDay(event.start));
+            case 3:
+                return events.filter((event) => isThirdDay(event.start));
+            default:
+                return [];
+        }
+    }, [events, currentDay]);
+
+    const liveToday = React.useMemo(() => {
+        return events.filter((event) => isToday(event.start) && event.url?.trim());
+    }, [events]);
 
     return (
         <div ref={forwardedRef}>
@@ -65,16 +103,22 @@ function Schedule({ forwardedRef }) {
             <Grid item xs={12} md={6}>
                 <Paper elevation={2} className={classes.box} >
                     <Grid container>
-                        {liveData.map((live) => {
+                        {liveToday.length > 0 ? liveToday.map((live) => {
                             return (
                                 <Grid key={live.id} item xs={12} justifyContent="center" alignItems="center" >
                                     <Typography variant="h5" >
-                                        <a href={live.link}>{live.event}: {live.link}</a>
+                                        <a href={live.url}>{live.name}: {live.url}</a>
                                         <ul/>
                                     </Typography>
                                 </Grid>
                             )
-                        })}
+                        }) : (
+                            <Grid item xs={12} justifyContent="center" alignItems="center" >
+                                <Typography variant="h5" >
+                                    No live events for today.
+                                </Typography>
+                            </Grid>
+                        )}
                     </Grid>
                 </Paper>
             </Grid>
@@ -103,21 +147,21 @@ function Schedule({ forwardedRef }) {
                                 </Paper>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.buttonStyle}>
+                                <Button className={classes.buttonStyle} onClick={() => changeDay(1)}>
                                     <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
                                         Day 1
                                     </Typography>
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.buttonStyle}>
+                                <Button className={classes.buttonStyle} onClick={() => changeDay(2)}>
                                     <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
                                         Day 2
                                     </Typography>
                                 </Button>
                             </Grid>
                             <Grid item>
-                                <Button className={classes.buttonStyle}>
+                                <Button className={classes.buttonStyle} onClick={() => changeDay(3)}>
                                     <Typography variant="h6" style={{color:"#D51E49",fontFamily:"America"}}>
                                         Day 3
                                     </Typography>
@@ -126,20 +170,24 @@ function Schedule({ forwardedRef }) {
                         </Grid>
                     </Grid>
                     <Grid item>
-                        <Paper elevation={2} className={classes.box}>
-                            <Typography variant="h4" style={{ paddingBottom: "2%", marginBottom: '2rem' }}>
-                                Day 1
-                            </Typography>
-                            <Grid spacing={1} container direction="column">
-                                {schedData.map((sched) => {
-                                    return (
-                                        <Grid key={sched.id} item>
-                                            <Schedules time={sched.time} data={sched.description} />
-                                        </Grid>
-                                    )
-                                })}
-                            </Grid>
-                        </Paper>
+                        {eventsLoading ? (
+                            <CircularProgress color="secondary" />
+                        ) : (
+                            <Paper elevation={2} className={classes.box}>
+                                <Typography variant="h4" style={{ paddingBottom: "2%", marginBottom: '2rem' }}>
+                                    Day {currentDay}
+                                </Typography>
+                                <Grid spacing={1} container direction="column">
+                                    {dayEvents.map((sched) => {
+                                        return (
+                                            <Grid key={sched.id} item>
+                                                <Schedules time={format(sched.start, 'h:mm aaa')} data={sched.name} />
+                                            </Grid>
+                                        )
+                                    })}
+                                </Grid>
+                            </Paper>
+                        )}
                     </Grid>
                 </Grid>
                 {/* <Schedules /> */}

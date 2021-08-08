@@ -5,7 +5,6 @@ import Tweets from './Tweets'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
-import { getCalendar } from '../../Utils/google';
 import isWithinInterval from 'date-fns/isWithinInterval';
 
 const useStyles = makeStyles((theme) => ({
@@ -36,33 +35,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Sidebar = React.forwardRef((props, ref) => {
+const Sidebar = React.forwardRef(({ events, eventsLoading }, ref) => {
     const classes = useStyles();
-
-    const [events, setEvents] = React.useState([]);
-    const [loading, setLoading] = React.useState(true);
-
-    React.useEffect(() => {
-        setLoading(true);
-        getCalendar().then((res) => {
-            setLoading(false);
-            setEvents(res.items.map((item) => ({
-                id: item.id,
-                start: new Date(item.start.date ?? item.start.dateTime),
-                end: new Date(item.end.date ?? item.end.dateTime),
-                name: item.summary,
-                location: item.location
-            })));
-        });
-    }, []);
 
     return (
         <div ref={ref}>
             <Grid direction="column" container spacing={2}>
                 <Grid item>
                     <Paper className={classes.cardContainer}>
-                        <Grid container direction="column" alignItems={loading ? 'center' : ''} justifyContent={loading ? 'center' : ''} spacing={2}>
-                            { loading ? (
+                        <Grid container direction="column" alignItems={eventsLoading ? 'center' : ''} justifyContent={eventsLoading ? 'center' : ''} spacing={2}>
+                            { eventsLoading ? (
                                 <CircularProgress color="primary" />
                             ) : (
                                 <>
