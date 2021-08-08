@@ -1,6 +1,6 @@
 import CardMedia from '@material-ui/core/CardMedia';
 import React from 'react'
-import { Card, CardActionArea, makeStyles } from '@material-ui/core';
+import { Card, makeStyles } from '@material-ui/core';
 
 function Cards({ img, alt, title, id, mobile, style }) {
     const handleClick = (e) => {
@@ -32,17 +32,15 @@ function Cards({ img, alt, title, id, mobile, style }) {
         <div className="cards" style={style}>
             <Card className={classes.root} id='card' onClick={handleClick}>
                 {/* <h4>{title}</h4> */}
-                <CardActionArea >
-                    <CardMedia 
-                        component="img"
-                        alt={alt}
-                        id={id}
-                        // height={mobile ? "60" : "567"}
-                        height={mobile ? "60" : "450"}
-                        image={img}
-                        title={title}
-                    />
-                </CardActionArea>
+                <CardMedia 
+                    component="img"
+                    alt={alt}
+                    id={id}
+                    // height={mobile ? "60" : "567"}
+                    height={mobile ? "60" : "450"}
+                    image={img}
+                    title={title}
+                />
             </Card>
         </div>
         

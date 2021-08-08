@@ -1,6 +1,6 @@
 import React from 'react'
 import CardMedia from '@material-ui/core/CardMedia';
-import { CardActionArea, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 
 import Grid from '@material-ui/core/Grid';
@@ -39,16 +39,14 @@ function Profiles({img, alt, name,position}) {
             {/* <Paper className={classes.paper}> */}
                 <Grid direction="column" container wrap="nowrap" spacing={2}>
                     <Grid item>
-                        <CardActionArea>
-                            <CardMedia 
-                                style={card}
-                                component="img"
-                                alt={alt}
-                                height="345"
-                                image={img}
-                                title={name}
-                            />
-                        </CardActionArea>
+                        <CardMedia 
+                            style={card}
+                            component="img"
+                            alt={alt}
+                            height="345"
+                            image={img}
+                            title={name}
+                        />
                     </Grid>
 
                     <Grid item xs style={{ textAlign: 'center', color: 'white' }}>
