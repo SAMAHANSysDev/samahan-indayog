@@ -5,12 +5,12 @@ function Schedules({time,data}) {
     return (
         <Grid spacing={8} container direction="row" justifyContent="space-between" alignItems="center" >
         {/* <Paper elevation={2} className={classes.box}> */}
-            <Grid item xs={2} sm={6}>
+            <Grid item xs={6} sm={4}>
                 <Typography variant="h5">
                     {time}
                 </Typography>
             </Grid>
-            <Grid item xs={6} sm={6}>
+            <Grid item xs={6} sm={8}>
                 <Typography variant="h5">
                     <b>{data}</b>
                 </Typography>

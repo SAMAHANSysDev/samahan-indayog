@@ -127,13 +127,13 @@ function Schedule({ forwardedRef }) {
                     </Grid>
                     <Grid item>
                         <Paper elevation={2} className={classes.box}>
-                            <Typography variant="h4" style={{ paddingBottom:"2%" }}>
+                            <Typography variant="h4" style={{ paddingBottom: "2%", marginBottom: '2rem' }}>
                                 Day 1
                             </Typography>
-                            <Grid spacing={3} container direction="row" justifyContent="flex-start" alignItems="center">
+                            <Grid spacing={1} container direction="column">
                                 {schedData.map((sched) => {
                                     return (
-                                        <Grid key={sched.id} item xs={12}>
+                                        <Grid key={sched.id} item>
                                             <Schedules time={sched.time} data={sched.description} />
                                         </Grid>
                                     )
