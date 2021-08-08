@@ -38,18 +38,18 @@ function Standing({ firebaseLoading }) {
     }, []);
 
     return (
-        <Grid container spacing={4} style={{ height: '100%' }} justifyContent="center" alignItems="center">
+        <Grid container spacing={4} style={{ height: '100%' }} alignItems="center">
             { firebaseLoading ? (
                 <Grid item>
                     <CircularProgress color="primary" />
                 </Grid>
             ) : (
                 <>
-                    <Grid item style={{ height: smDown ? '50%' : '100%' }} sm={12} md innerRef={observe}>
+                    <Grid item style={{ height: smDown ? '50%' : '100%' }} sm={12} md={8} innerRef={observe}>
                         <Charts height={height} width={width} />
                     </Grid>
-                    <Grid item sm={12} md>
-                        <Grid container direction="column" justify="center" alignItems="center">
+                    <Grid item sm={12} md={4} style={{ height: smDown ? '50%' : '' }}>
+                        <Grid container direction="column" justifyContent="center">
                             <Grid item>
                                 <Typography variant="h4" style={judging}>
                                     Judging Updates
