@@ -29,21 +29,18 @@ const name = {
 
 
 
-function Event({ data }) {
+function Update({img, alt, link}) {
     const classes = useStyles();
     return (
         <div className='event'>
-            <Grid container spacing={2}>
-                {/*<Grid item xs={2} sm={6} md={4}>
-                    <div className={classes.image} style={{ backgroundImage: `url(${img})` }} />
-                </Grid>*/}
+            <Grid container spacing={1}>
                 <Grid item>
                     <Grid className={classes.details} direction="column" container spacing={0} >
                         <Grid item>
-                            <Typography variant="h5" style={name}>{data?.name}</Typography>
+                            <Typography variant="h5" style={name}>{alt}</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant="h6" style={via}>via {data?.location}</Typography>
+                            <Typography variant="h6" style={via}>{link}</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
@@ -60,4 +57,4 @@ function Event({ data }) {
     )
 }
 
-export default Event
+export default Update

@@ -121,7 +121,7 @@ function Home({ forwardedRef, firebaseLoading }) {
                                                 borderRadius: "26px 0 0 26px"
                                             }}
                                         >
-                                            <Grid container justify="center" alignItems="center" style={{ height: '100%' }}>
+                                            <Grid container justify="center" alignItems="center" style={{ height: '100%' }} wrap="nowrap">
                                                 <Grid item>
                                                     <Typography variant="h4" className={classes.standing}>
                                                         Indayog 2021 Cluster Standing

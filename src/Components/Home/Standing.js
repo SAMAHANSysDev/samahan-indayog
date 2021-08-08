@@ -1,7 +1,7 @@
 import { Grid, Typography, CircularProgress } from "@material-ui/core";
 import React from "react";
 import Charts from "./Charts";
-import Event from "./Event";
+import Update from "./Update";
 import firebase from '../../Utils/firebaseInstance';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
@@ -60,7 +60,7 @@ function Standing({ firebaseLoading }) {
                                     {judgingData.map((now) => {
                                         return (
                                             <Grid item key={now.id}>
-                                                <Event img={now.img} alt={now.alt} link={now.link} />
+                                                <Update img={now.img} alt={now.alt} link={now.link} />
                                             </Grid>
                                         )
                                     })}

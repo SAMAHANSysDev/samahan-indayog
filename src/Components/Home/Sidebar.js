@@ -1,12 +1,12 @@
-import { Grid } from '@material-ui/core'
+import { Grid, CircularProgress } from '@material-ui/core'
 import React from 'react'
 import Event from './Event'
-import { eventDataNext } from './eventDataNext'
-import { eventDataNow } from './eventDataNow'
 import Tweets from './Tweets'
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
+import { getCalendar } from '../../Utils/google';
+import isWithinInterval from 'date-fns/isWithinInterval';
 
 const useStyles = makeStyles((theme) => ({
     now: {
@@ -39,30 +39,58 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = React.forwardRef((props, ref) => {
     const classes = useStyles();
 
+    const [events, setEvents] = React.useState([]);
+    const [loading, setLoading] = React.useState(true);
+
+    React.useEffect(() => {
+        setLoading(true);
+        getCalendar().then((res) => {
+            setLoading(false);
+            setEvents(res.items.map((item) => ({
+                id: item.id,
+                start: new Date(item.start.date ?? item.start.dateTime),
+                end: new Date(item.end.date ?? item.end.dateTime),
+                name: item.summary,
+                location: item.location
+            })));
+        });
+    }, []);
 
     return (
         <div ref={ref}>
             <Grid direction="column" container spacing={2}>
                 <Grid item>
                     <Paper className={classes.cardContainer}>
-                        <Grid container direction="column" spacing={2}>
-                            <Grid item>
-                                <Typography variant="h4" className={classes.now}>Now Happening</Typography>
-                                {eventDataNow.map((now) => {
-                                    return (
-                                        <Event img={now.img} key={now.id} alt={now.alt} link={now.link} />
-                                    )
-                                })}
-                            </Grid>
-                            <Grid item>
-                                <hr className={classes.bar}/>
-                                <Typography variant="h4" className={classes.next2}>Up Next</Typography>
-                                {eventDataNext.map((next) => {
-                                    return (
-                                        <Event img={next.img} key={next.id} alt={next.alt} link={next.link} />
-                                    )
-                                })}
-                            </Grid>
+                        <Grid container direction="column" alignItems={loading ? 'center' : ''} justifyContent={loading ? 'center' : ''} spacing={2}>
+                            { loading ? (
+                                <CircularProgress color="primary" />
+                            ) : (
+                                <>
+                                    <Grid item>
+                                        <Typography variant="h4" className={classes.now}>Now Happening</Typography>
+                                        {events.filter((event) => isWithinInterval(
+                                            new Date(),
+                                            { start: event.start, end: event.end }
+                                        )).map((now) => {
+                                            return (
+                                                <Event data={now} />
+                                            )
+                                        })}
+                                    </Grid>
+                                    <Grid item>
+                                        <hr className={classes.bar}/>
+                                        <Typography variant="h4" className={classes.next2}>Up Next</Typography>
+                                        {events.filter((event) => !isWithinInterval(
+                                            new Date(),
+                                            { start: event.start, end: event.end }
+                                        )).slice(0, 5).map((now) => {
+                                            return (
+                                                <Event data={now} />
+                                            )
+                                        })}
+                                    </Grid>
+                                </>
+                            ) }
                         </Grid>
                     </Paper>
                 </Grid>
