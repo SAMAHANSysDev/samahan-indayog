@@ -114,7 +114,6 @@ const Navbar = ({ tabValue }) => {
                             key="1"
                             onClick={handleClick}
                             src="/assets/Logo/logo.png"
-                            width="100%"
                             style={{ maxHeight: 100 }}
                         />
                     </Grid>
