@@ -19,17 +19,17 @@ function Standing({ firebaseLoading }) {
     const theme = useTheme();
     const smDown = useMediaQuery(theme.breakpoints.down('sm'));
     const [judgingData, setJudgingData] = React.useState([]);
-    const { observe, height } = useDimensions();
+    const { observe, height, width } = useDimensions();
 
     React.useEffect(() => {
         const updatesRef = firebase.database().ref('updates');
         updatesRef.orderByChild('timestamp').limitToLast(5).on('value', (snapshot) => {
             const updates = snapshot.val();
-            setJudgingData(Object.keys(updates).map((id) => ({
+            setJudgingData(updates ? Object.keys(updates).map((id) => ({
                 id,
                 alt: updates[id].name,
                 link: 'has been judged!'
-            })).reverse());
+            })).reverse() : []);
         });
 
         return () => {
@@ -46,7 +46,7 @@ function Standing({ firebaseLoading }) {
             ) : (
                 <>
                     <Grid item style={{ height: smDown ? '50%' : '100%' }} sm={12} md innerRef={observe}>
-                        <Charts height={height} />
+                        <Charts height={height} width={width} />
                     </Grid>
                     <Grid item sm={12} md>
                         <Grid container direction="column" justify="center" alignItems="center">

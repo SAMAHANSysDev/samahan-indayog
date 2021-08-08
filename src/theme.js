@@ -2,7 +2,7 @@ import { createTheme } from "@material-ui/core";
 
 export default createTheme({
     palette: {
-        background: '#f2f4f8',
+        // background: '#f2f4f8',
         secondary: {
             main: '#ffffff'
         }
