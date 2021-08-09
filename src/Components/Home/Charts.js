@@ -1,7 +1,9 @@
 import React from 'react';
 
-import { BarChart, Bar, Cell, XAxis, YAxis, LabelList, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, Cell, XAxis, YAxis, LabelList, Tooltip, ResponsiveContainer } from 'recharts';
 
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import firebase from '../../Utils/firebaseInstance';
@@ -55,7 +57,7 @@ const Charts = ({ height, width }) => {
             score: clusterScores[cluster],
         }))
     }, [clusterScores, revealClusters]);
-    
+
     const renderCustomizedLabel = (props) => {
         const { x, y, width, height, value } = props;
       
@@ -67,13 +69,33 @@ const Charts = ({ height, width }) => {
           </g>
         );
     };
+
+    const CustomTooltip = ({ active, payload, label }) => {
+        if (active && payload && payload.length) {
+          return (
+            <Paper style={{ padding: '2rem' }}>
+              <Typography variant="h5" style={{ fontFamily: 'Montserrat', fontWeight: 800 }}>{`Cluster ${label + 1}`}</Typography>
+              <Typography variant="h4" style={{ fontFamily: 'Montserrat', fontWeight: 800 }}>{`Total Score: ${payload[0].value}`}</Typography>
+              {revealClusters ? null : (
+                <Typography variant="h6" style={{ fontFamily: 'Montserrat' }}>The cluster names are currently hidden! 😉</Typography>
+              )}
+            </Paper>
+          );
+        }
+      
+        return null;
+      };
+
     return (
         <ResponsiveContainer width="99%" height="99%">
           <BarChart data={data} layout={matches ? "vertical" : "horizontal"}>
             <XAxis type={matches ? "number" : "category"} hide />
             <YAxis type={matches ? "category" : "number"} hide />
+            <Tooltip content={<CustomTooltip />} />
             <Bar dataKey="score">
-                <LabelList dataKey="name" content={renderCustomizedLabel} />
+                { revealClusters ? <></> : (
+                    <LabelList dataKey="name" content={renderCustomizedLabel} />
+                ) }
                 {data.map((entry, index) => (
                     <Cell cursor="pointer" fill={'#055094'} key={`cell-${index}`} />
                 ))}
