@@ -67,7 +67,7 @@ const Charts = ({ height, width }) => {
     }, [])
 
     const data = React.useMemo(() => {
-        return Object.keys(clusterScores).sort((a, b) => clusterScores[b] - clusterScores[a]).map((cluster, i) => ({
+        return Object.keys(clusterScores).sort((a, b) => clusterScores[a] - clusterScores[b]).map((cluster, i) => ({
             name: revealClusters ? cluster : `${i + 1}`,
             score: clusterScores[cluster],
         }))
@@ -89,8 +89,9 @@ const Charts = ({ height, width }) => {
         if (active && payload && payload.length) {
           return (
             <Paper style={{ padding: '2rem' }}>
-              <Typography variant="h5" style={{ fontFamily: 'Montserrat', fontWeight: 800 }}>{!revealClusters ? `${ordinalSuffix(label + 1)} place` : `${payload[0]?.payload?.name} Cluster`}</Typography>
-              <Typography variant="h4" style={{ fontFamily: 'Montserrat', fontWeight: 800 }}>{`Total Score: ${payload[0].value}`}</Typography>
+              <Typography variant="h4" style={{ fontFamily: 'Montserrat', fontWeight: 800 }}>{!revealClusters ? `${ordinalSuffix(label + 1)} place` : `${payload[0]?.payload?.name} Cluster`}</Typography>
+              <Typography variant="h5" style={{ fontFamily: 'Montserrat', fontWeight: 800 }}>{`Total Accumulated Rankings: ${payload[0].value}`}</Typography>
+              <Typography variant="h6" style={{ fontFamily: 'Montserrat', fontStyle: 'italic' }}>Lower is better</Typography>
               {revealClusters ? null : (
                 <Typography variant="h6" style={{ fontFamily: 'Montserrat' }}>The cluster names are currently hidden! 😉</Typography>
               )}
