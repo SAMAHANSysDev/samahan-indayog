@@ -2,6 +2,8 @@ import { Grid, makeStyles } from '@material-ui/core'
 import React from 'react'
 import Typography from '@material-ui/core/Typography';
 
+import formatDistanceToNow from 'date-fns/formatDistanceToNow'
+
 const useStyles = makeStyles({
         image: {
             width: '100%',
@@ -43,7 +45,7 @@ function Event({ data }) {
                             <Typography variant="h5" style={name}>{data?.name}</Typography>
                         </Grid>
                         <Grid item>
-                            <Typography variant="h6" style={via}>via {data?.location}</Typography>
+                            <Typography variant="h6" style={via}>via {data?.location} ({formatDistanceToNow(data?.start, { addSuffix: true })})</Typography>
                         </Grid>
                     </Grid>
                 </Grid>
