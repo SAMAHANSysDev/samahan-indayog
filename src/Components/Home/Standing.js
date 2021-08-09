@@ -45,10 +45,10 @@ function Standing({ firebaseLoading }) {
                 </Grid>
             ) : (
                 <>
-                    <Grid item style={{ height: smDown ? '50%' : '100%' }} sm={12} md={8} innerRef={observe}>
+                    <Grid item style={{ height: smDown ? '50%' : '100%' }} xs={12} md={8} innerRef={observe}>
                         <Charts height={height} width={width} />
                     </Grid>
-                    <Grid item sm={12} md={4} style={{ height: smDown ? '50%' : '' }}>
+                    <Grid item xs={12} md={4} style={{ height: smDown ? '50%' : '' }}>
                         <Grid container direction="column" justifyContent="center">
                             <Grid item>
                                 <Typography variant="h4" style={judging}>

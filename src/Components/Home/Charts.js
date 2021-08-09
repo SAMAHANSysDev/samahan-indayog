@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { VictoryBar, VictoryChart } from 'victory';
+import { BarChart, Bar, Cell, XAxis, YAxis, LabelList, ResponsiveContainer } from 'recharts';
 
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
@@ -51,36 +51,35 @@ const Charts = ({ height, width }) => {
 
     const data = React.useMemo(() => {
         return Object.keys(clusterScores).map((cluster, i) => ({
-            cluster: revealClusters ? cluster : `C${i + 1}`,
+            name: revealClusters ? cluster : `${i + 1}`,
             score: clusterScores[cluster],
         }))
     }, [clusterScores, revealClusters]);
-
+    
+    const renderCustomizedLabel = (props) => {
+        const { x, y, width, height, value } = props;
+      
+        return (
+          <g>
+            <text x={matches ? 40 : x + width - 30} y={matches ? y + height / 2 : y + height - 40} fill="#055094" stroke="#fff" strokeWidth="4" fontSize={matches ? height : width} textAnchor="middle" dominantBaseline="middle">
+              {value}
+            </text>
+          </g>
+        );
+    };
     return (
-        <VictoryChart
-            // domainPadding will add space to each side of VictoryBar to
-            // prevent it from overlapping the axis
-            domainPadding={20}
-            height={height}
-            width={width}
-        >
-            <VictoryBar
-                animate={{
-                    duration: 2000,
-                    onLoad: { duration: 1000 }
-                }}
-                horizontal={matches}
-                barWidth={({ index }) => index * 2 + 40}
-                data={data}
-                style={{
-                    data: { 
-                        fill: "#055094"
-                    }
-                }}
-                x="cluster"
-                y="score"
-            />
-        </VictoryChart>
+        <ResponsiveContainer width="99%" height="99%">
+          <BarChart data={data} layout={matches ? "vertical" : "horizontal"}>
+            <XAxis type={matches ? "number" : "category"} hide />
+            <YAxis type={matches ? "category" : "number"} hide />
+            <Bar dataKey="score">
+                <LabelList dataKey="name" content={renderCustomizedLabel} />
+                {data.map((entry, index) => (
+                    <Cell cursor="pointer" fill={'#055094'} key={`cell-${index}`} />
+                ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
     )
 }
 
