@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from '@material-ui/core/Paper';
 import isWithinInterval from 'date-fns/isWithinInterval';
+import isFuture from 'date-fns/isFuture';
 
 const useStyles = makeStyles((theme) => ({
     now: {
@@ -62,7 +63,7 @@ const Sidebar = React.forwardRef(({ events, eventsLoading }, ref) => {
                                     <Grid item>
                                         <hr className={classes.bar}/>
                                         <Typography variant="h4" className={classes.next2}>Up Next</Typography>
-                                        {events.filter((event) => !isWithinInterval(
+                                        {events.filter((event) => isFuture(event.start) && !isWithinInterval(
                                             new Date(),
                                             { start: event.start, end: event.end }
                                         )).slice(0, 5).map((now) => {
