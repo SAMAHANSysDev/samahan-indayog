@@ -14,7 +14,9 @@ const useStyles = makeStyles((theme) => ({
         paddingBottom: '4rem',
         backgroundImage: 'url("/assets/Backgrounds/TWG BG.png")',
         backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundPosition: 'center',
+        
+        
     },
     buttonStyle: {
         borderRadius: 26,
@@ -27,9 +29,9 @@ function TWG({ forwardedRef }) {
     const classes = useStyles();
 
     return (
-        <Grid container direction="column" alignItems="center" className={classes.rootContainer} innerRef={forwardedRef} spacing={8}>
-            <Grid item>
-                <Grid container wrap="nowrap" spacing={4} alignItems="center">
+        <Grid container direction="column" alignItems="center" className={classes.rootContainer} innerRef={forwardedRef} >
+            <Grid item >
+                <Grid container wrap="nowrap" spacing={4} alignItems="center" style={{ marginBottom:"2%" }}>
                     <Grid item>
                         <Typography variant="h2" style={{ fontFamily:'america', color:'white', marginTop: 25 }}>
                             Meet the Team Behind
