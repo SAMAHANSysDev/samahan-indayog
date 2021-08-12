@@ -73,7 +73,7 @@ function Tv({ forwardedRef }) {
                             margin: 'auto'
                         }}>
                             <Typography className={classes.body} variant="h5">
-                                <b>SAMAHAN TV</b> is an initiative for the upcoming 73rd Ateneo Fiesta for the purposes of information dissemination and to spark interest of Atenans to anticipate the biggest event in Ateneo. 
+                                <b>SAMAHAN TV</b> is an initiative for the upcoming 73rd Ateneo Fiesta for the purpose of information dissemination and to spark interest of Ateneans to anticipate the biggest event in Ateneo. 
                                 <br /><br />The Fiesta Segment will comprise of six (6) episodes highlighting different events and provide a general overview for the upcoming activities.
                             </Typography>
                         </Paper>
