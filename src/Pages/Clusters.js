@@ -1,57 +1,25 @@
-import { Button, Grid } from '@material-ui/core'
-import React from 'react'
-import Cards from '../Components/Clusters/Cards'
-import { clustersData } from '../Components/Clusters/ClustersData'
-import Typography from '@material-ui/core/Typography';
-import {withStyles, makeStyles } from "@material-ui/core/styles";
-import Hidden from '@material-ui/core/Hidden';
-import handleViewport from 'react-in-viewport';
-import { useState } from 'react';
-import Modal from "react-modal";
+import { Button, Grid } from "@material-ui/core";
+import React from "react";
+import Cards from "../Components/Clusters/Cards";
+import { clustersData } from "../Components/Clusters/ClustersData";
+import Typography from "@material-ui/core/Typography";
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import Hidden from "@material-ui/core/Hidden";
+import handleViewport from "react-in-viewport";
+import { useState } from "react";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+import Dialog from "@material-ui/core/Dialog";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
-const StyledTableCell = withStyles((theme) => ({
-    head: {
-        backgroundColor: theme.palette.common.black,
-        color: theme.palette.common.white,
-    },
-    body: {
-        fontSize: 14,
-    },
-    }))(TableCell);
-
-const StyledTableRow = withStyles((theme) => ({
-    root: {
-        '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-        },
-    },
-}))(TableRow);
-
-function createData(cluster,event,link) {
-    return { cluster,event,link };
-}
-
-const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-];
-
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     rootContainer: {
-        minHeight: '101vh',
+        minHeight: "101vh",
         padding: theme.spacing(2),
         backgroundImage: 'url("/assets/Backgrounds/Clusters BG.png")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center'
+        backgroundSize: "cover",
+        backgroundPosition: "center",
     },
     mymodal: {
         position: "fixed",
@@ -59,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
         left: "50%",
         transform: "translate(-50%, -50%)",
 
-        border: '1px solid #ccc',
+        border: "1px solid #ccc",
         background: "#fff",
         overflow: "auto",
         borderRadius: "4px",
@@ -77,99 +45,226 @@ const useStyles = makeStyles((theme) => ({
     table: {
         minWidth: 700,
     },
+    closeButton: {
+        position: "absolute",
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
 }));
 
-const moduloToMargin = (modulo) => {
-    return (30*modulo);
-}
+const moduloToMargin = modulo => {
+    return 30 * modulo;
+};
+
+const styles = theme => ({
+    root: {
+        margin: 0,
+        padding: theme.spacing(2),
+    },
+    closeButton: {
+        position: "absolute",
+        right: theme.spacing(1),
+        top: theme.spacing(1),
+        color: theme.palette.grey[500],
+    },
+});
+
+const DialogTitle = withStyles(styles)(props => {
+    const { children, classes, onClose, ...other } = props;
+    return (
+        <MuiDialogTitle disableTypography className={classes.root} {...other}>
+            <Typography variant="h6">{children}</Typography>
+            {onClose ? (
+                <IconButton
+                    aria-label="close"
+                    className={classes.closeButton}
+                    onClick={onClose}
+                >
+                    <CloseIcon />
+                </IconButton>
+            ) : null}
+        </MuiDialogTitle>
+    );
+});
+
+const DialogContent = withStyles(theme => ({
+    root: {
+        padding: theme.spacing(2),
+    },
+}))(MuiDialogContent);
 
 function Clusters({ forwardedRef }) {
     const classes = useStyles();
-    const [isOpen, setIsOpen] = useState(false);
-    
-    function toggleModal() {
-        setIsOpen(!isOpen);
-        
-    }
+    const [open, setOpen] = useState(false);
+    const [clickedCluster, setClickedCluster] = useState("");
+    const [clusterEntries, setClusterEntries] = useState([]);
+
+    const handleClickOpen = (title, entries) => {
+        setClickedCluster(title);
+        setClusterEntries(entries);
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setClickedCluster("");
+        setClusterEntries([]);
+        setOpen(false);
+    };
 
     return (
         <>
-        <Grid innerRef={forwardedRef} container direction="column" justifyContent="center" alignItems="center" spacing={1} className={classes.rootContainer}>
-            <Grid item>
-                <Hidden mdDown>
-                    <Grid container justifyContent="center" alignItems="center" spacing={3}>
-                        {clustersData.map((cluster, i) => {
-                            return (
-                                <Button onClick={toggleModal}>
-                                    <Grid item key={cluster.id}>
-                                        <Cards img={cluster.img} alt={cluster.alt} title={cluster.title} id={cluster.id} style={{ marginTop: moduloToMargin(i % 3) }}/>
-                                    </Grid>
-                                </Button>
-
-                            )
-                        })}
-                    </Grid>
-                </Hidden>
-                <Hidden lgUp>
-                    <Grid container direction="column" justifyContent="center" alignItems="center" spacing={1}>
-                        {clustersData.map((cluster) => {
-                            return (
-                                <Button onClick={toggleModal}>
-                                    <Grid item key={cluster.id}>
-                                        <Cards img={cluster.img.replace('.png', 'mobile.png')} alt={cluster.alt} title={cluster.title} id={cluster.id} mobile />
-                                    </Grid>
-                                </Button>
-                            )
-                        })}
-                    </Grid>
-                </Hidden>
-            </Grid>
-            <Grid item>
-                <Grid container direction="column" justifyContent="center" alignItems="center">
-                    <Grid item>
-                        <Typography variant="h1" style={{ color: '#FFFFFF', marginTop:"30px" }}>INDAYOG 2021 CLUSTERS</Typography>
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="h2" style={{ color: '#FCBD6E', fontFamily:'america' }}>73rd Ateneo Fiesta</Typography>
+            <Grid
+                innerRef={forwardedRef}
+                container
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                spacing={1}
+                className={classes.rootContainer}
+            >
+                <Grid item>
+                    <Hidden mdDown>
+                        <Grid
+                            container
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={3}
+                        >
+                            {clustersData.map((cluster, i) => {
+                                return (
+                                    <Button
+                                        key={cluster.id}
+                                        onClick={() =>
+                                            handleClickOpen(
+                                                cluster.alt,
+                                                cluster.entries
+                                            )
+                                        }
+                                    >
+                                        <Grid item>
+                                            <Cards
+                                                img={cluster.img}
+                                                alt={cluster.alt}
+                                                title={cluster.title}
+                                                id={cluster.id}
+                                                style={{
+                                                    marginTop: moduloToMargin(
+                                                        i % 3
+                                                    ),
+                                                }}
+                                            />
+                                        </Grid>
+                                    </Button>
+                                );
+                            })}
+                        </Grid>
+                    </Hidden>
+                    <Hidden lgUp>
+                        <Grid
+                            container
+                            direction="column"
+                            justifyContent="center"
+                            alignItems="center"
+                            spacing={1}
+                        >
+                            {clustersData.map(cluster => {
+                                return (
+                                    <Button
+                                        key={cluster.id}
+                                        onClick={() =>
+                                            handleClickOpen(
+                                                cluster.alt,
+                                                cluster.entries
+                                            )
+                                        }
+                                    >
+                                        <Grid item>
+                                            <Cards
+                                                img={cluster.img.replace(
+                                                    ".png",
+                                                    "mobile.png"
+                                                )}
+                                                alt={cluster.alt}
+                                                title={cluster.title}
+                                                id={cluster.id}
+                                                mobile
+                                            />
+                                        </Grid>
+                                    </Button>
+                                );
+                            })}
+                        </Grid>
+                    </Hidden>
+                </Grid>
+                <Grid item>
+                    <Grid
+                        container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center"
+                    >
+                        <Grid item>
+                            <Typography
+                                variant="h1"
+                                style={{ color: "#FFFFFF", marginTop: "30px" }}
+                            >
+                                INDAYOG 2021 CLUSTERS
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <Typography
+                                variant="h2"
+                                style={{
+                                    color: "#FCBD6E",
+                                    fontFamily: "america",
+                                }}
+                            >
+                                73rd Ateneo Fiesta
+                            </Typography>
+                        </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
-        
-        <Modal
-            isOpen={isOpen}
-            onRequestClose={toggleModal}
-            contentLabel="My dialog"
-            className={classes.mymodal}
-            overlayClassName={classes.myoverlay}
-            closeTimeoutMS={500}
-        >
-            <TableContainer component={Paper}>
-                <Table className={classes.table} aria-label="customized table">
-                    <TableHead>
-                    <TableRow>
-                        <StyledTableCell>Cluster</StyledTableCell>
-                        <StyledTableCell align="right">Event</StyledTableCell>
-                        <StyledTableCell align="right">Link</StyledTableCell>
-                    </TableRow>
-                    </TableHead>
-                    <TableBody>
-                    {rows.map((row) => (
-                        <StyledTableRow key={row.cluster}>
-                        <StyledTableCell component="th" scope="row">
-                            {row.cluster}
-                        </StyledTableCell>
-                        <StyledTableCell align="right">{row.event}</StyledTableCell>
-                        <StyledTableCell align="right">{row.link}</StyledTableCell>
-                        </StyledTableRow>
-                    ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-        </Modal>
 
+            <Dialog
+                onClose={handleClose}
+                aria-labelledby="customized-dialog-title"
+                open={open}
+            >
+                <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+                    <Typography variant="h4">
+                        {`${clickedCluster} Entries`}
+                    </Typography>
+                </DialogTitle>
+                <DialogContent dividers>
+                    <table style={{ margin: "auto" }}>
+                        {clusterEntries.map(entries => (
+                            <tr>
+                                <td style={{ padding: 5 }}>
+                                    <Typography variant="h6">
+                                        {entries.event}
+                                    </Typography>
+                                </td>
+                                <td style={{ padding: 5 }}>
+                                    <Button
+                                        color="secondary"
+                                        onClick={() =>
+                                            window.open(entries.link)
+                                        }
+                                    >
+                                        <Typography variant="h6">
+                                            Click Here
+                                        </Typography>
+                                    </Button>
+                                </td>
+                            </tr>
+                        ))}
+                    </table>
+                </DialogContent>
+            </Dialog>
         </>
-    )
+    );
 }
 
-export default handleViewport(Clusters)
+export default handleViewport(Clusters);
