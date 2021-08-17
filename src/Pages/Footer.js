@@ -10,7 +10,6 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
     },
     text: {
-        color: theme.palette.secondary.main,
         textAlign: "center",
         fontFamily: "Montserrat",
         color: "white",
